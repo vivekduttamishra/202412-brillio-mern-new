@@ -1,0 +1,22 @@
+.result_table{
+    width:90%;    
+}
+
+.result_table th{
+    background-color: gray;
+    color:white;
+    font-weight: bold;
+}
+
+.running{
+    background:coral;
+
+}
+
+.done{
+    background-color: limegreen;
+}
+
+.error_row{
+    background-color:red;
+}

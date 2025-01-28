@@ -1,0 +1,6 @@
+@api_url = https://localhost:4000/api/movies
+
+
+### Get All Movies
+
+GET {{api_url}}
