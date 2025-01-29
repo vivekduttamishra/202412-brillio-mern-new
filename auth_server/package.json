@@ -12,6 +12,7 @@
   "license": "ISC",
   "description": "",
   "dependencies": {
+    "bcrypt": "^5.1.1",
     "ca-webutils": "^1.4.0",
     "mongoose": "^8.9.5"
   },

@@ -6,18 +6,22 @@ const userController = ()=>{
     const userService = injector.getService('userService');
     
     const getAllUsers = ()=> userService.getAllUsers();
-    
-    const getUserById = ({id})=> userService.getUserById(id);
-    
+   
+//
+//PATCH /api/users/:email/activate
+//{active:true}
+
+    const activateUser= (({body,email})=> userService.activateUser(email, body.active))
+
     const registerUser = ({body})=> userService.register(body);
     
     const login = ({body})=> userService.login(body);
 
     return {
         getAllUsers,
-        getUserById,
         registerUser,
         login,
+        activateUser,
     }
 }
 

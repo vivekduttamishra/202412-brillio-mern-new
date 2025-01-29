@@ -9,13 +9,51 @@ POST {{api_url}}
 Content-Type: application/json
 
 {
+    "name": "John Doe",
+    "password": "p@ss#1234",
+    "email": "jane.doe@example.com"
+    
+}
+
+
+### Register Admin User
+POST {{api_url}}
+Content-Type: application/json
+
+{
     "name": "Jane Doe",
     "password": "p@ss#1234",
-    "email": "jane.doe@example.com",
+    "photo":"jane.jpg",
+    "email": "jane.doe@email.com",
     "roles":["admin"]
 }
 
-### Register User
+###  Registering Admin User
+POST {{api_url}}
+Content-Type: application/json
+
+{
+    "name": "Vivek",
+    "password": "p@ss#1234",
+    "photo":"vivek.jpg",
+    "email": "vivek@email.com",
+    "roles":["author","Admin"]
+}
+
+
+### Register New User
+POST {{api_url}}
+Content-Type: application/json
+
+{
+"name": "Vivek",
+    "password": "p@ss#1234",
+    "photo":"vivek.jpg",
+    "email": "vivek@email.com",
+    "roles":["author","editor"]
+}
+
+### GET all users
 GET {{api_url}}
 
 ### Login User
@@ -25,4 +63,13 @@ Content-Type: application/json
 {
     "email": "jane.doe@example.com",
     "password": "p@ss#1234"
+}
+
+
+### Activate User jane.does@example.com
+PATCH {{api_url}}/jane.doe@example.com/activate
+Content-Type: application/json
+
+{
+    "active":true
 }

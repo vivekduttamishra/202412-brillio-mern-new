@@ -20,6 +20,10 @@ const createRouter = ()=>{
         .route('/signin')
         .post(routeHandler(controller.login));
 
+    router
+        .route("/:email/activate")
+        .patch(routeHandler(controller.activateUser));
+
 
     return router;
 

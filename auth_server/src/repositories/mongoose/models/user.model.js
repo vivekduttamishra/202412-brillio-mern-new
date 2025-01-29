@@ -2,7 +2,8 @@ const mongoose = require('mongoose');
 
 //create a user schema with name, email, password, photo, roles
 
-const userSchema = mongoose.Schema({
+const userSchema = mongoose.Schema(
+    {
     name: {
         type: String,
         required: true
@@ -11,7 +12,7 @@ const userSchema = mongoose.Schema({
         type: String,
         required: true,
         unique: true,
-        
+
     },
     password: {
         type: String,
@@ -23,8 +24,14 @@ const userSchema = mongoose.Schema({
     roles: {
         type: [String],
         default: ['user']
+    },
+    active:{
+        type: Boolean,
+        default: false
     }
-});
+}
+//,{strict:false}
+);
 
 const User = mongoose.model('User', userSchema, 'users');
 

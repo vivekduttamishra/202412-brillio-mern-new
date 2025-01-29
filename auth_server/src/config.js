@@ -1,10 +1,10 @@
-const { injector } = require('ca-webutils')
+const { injector,expressx } = require('ca-webutils')
 
 const User = require('./repositories/mongoose/models/user.model')
 const MongooseUserRepository = require('./repositories/mongoose/user.repository');
 const UserService = require('./services/user.service');
 
-console.log('User',User);
+//console.log('User',User);
 
 
 injector
@@ -12,4 +12,7 @@ injector
     .addService('userRepository', MongooseUserRepository)
     .addService('userService', UserService)
 
-console.log('injector.container',injector.container);
+//console.log('injector.container',injector.container);
+
+        
+expressx.addCustomError('MongoServerError',400);
