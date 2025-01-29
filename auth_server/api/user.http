@@ -66,7 +66,23 @@ Content-Type: application/json
 }
 
 
-### Activate User jane.does@example.com
+### Find Current User Info witout header
+GET {{api_url}}/current
+
+
+### Find Current User Info with valid token
+GET {{api_url}}/current
+Authorization: BEARER eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJVc2VyQXV0aGVudGljYXRvciIsImlhdCI6MTczODE0NzU5NCwiZXhwIjoxNzM4MTQ3ODk0LCJjbGFpbXMiOnsibmFtZSI6IkpvaG4gRG9lIiwiZW1haWwiOiJqYW5lLmRvZUBleGFtcGxlLmNvbSIsInJvbGVzIjpbInVzZXIiXSwiYWN0aXZlIjp0cnVlfSwic3ViIjoiamFuZS5kb2VAZXhhbXBsZS5jb20ifQ.bNoherLnD3UnYtRrfER4I95-KDeRb4kITGG3G-qvgCU 
+
+
+### Find Current User Info with invalidvalid token
+GET {{api_url}}/current
+Authorization: BEARER eyJhbXXXGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1lIjoiSm9obiBEb2UiLCJlbWFpbCI6ImphbmUuZG9lQGV4YW1wbGUuY29tIiwicm9sZXMiOlsidXNlciJdLCJhY3RpdmUiOnRydWUsImlhdCI6MTczODE0NzEwMn0.Z08mNFe2rRHo19gPRAtTaquoYItaiaGd0HFapQAS2cQ 
+
+
+
+
+### Activate User jane.doe@example.com
 PATCH {{api_url}}/jane.doe@example.com/activate
 Content-Type: application/json
 

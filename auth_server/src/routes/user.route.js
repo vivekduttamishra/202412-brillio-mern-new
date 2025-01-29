@@ -24,6 +24,10 @@ const createRouter = ()=>{
         .route("/:email/activate")
         .patch(routeHandler(controller.activateUser));
 
+    router
+        .route('/current')
+        .get(routeHandler(controller.currentUserInfo))
+
 
     return router;
 
