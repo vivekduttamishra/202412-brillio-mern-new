@@ -4,6 +4,7 @@ const expressx = require('./expressx');
 const httpx = require('./httpx');
 const injector = require('./injector')
 const errors=require('./errors');
+const MongooseRepository = require('./mongoose.repository');
 
 
 
@@ -13,6 +14,8 @@ module.exports={
     httpx,
     injector,
     errors,
+    MongooseRepository,
+ 
 }
 
 

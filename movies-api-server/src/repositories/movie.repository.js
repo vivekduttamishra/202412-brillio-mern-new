@@ -5,7 +5,7 @@ class MovieRepository{
         this.model = model;
     }
 
-    async getAllMovies() {
+    async getAll() {
         return await this.model.find();
     }
     
