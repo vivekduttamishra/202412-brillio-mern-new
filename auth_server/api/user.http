@@ -3,6 +3,7 @@
 
 ### Get All Users
 GET {{api_url}}
+Authorization: BEARER eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJVc2VyQXV0aGVudGljYXRvciIsImlhdCI6MTczODE1MjcwNCwiZXhwIjoxNzM4MTUzMDA0LCJjbGFpbXMiOnsibmFtZSI6IkphbmUgRG9lIiwiZW1haWwiOiJqYW5lLmRvZUBlbWFpbC5jb20iLCJwaG90byI6ImphbmUuanBnIiwicm9sZXMiOlsiYWRtaW4iXSwiYWN0aXZlIjp0cnVlfSwic3ViIjoiamFuZS5kb2VAZW1haWwuY29tIn0.d1n_Js8P183AXq83sCr5ng6tBaj_9_toEKByZbGc-Io
 
 ### Register User
 POST {{api_url}}
@@ -46,11 +47,20 @@ POST {{api_url}}
 Content-Type: application/json
 
 {
-"name": "Vivek",
+"name": "Vivek Dutta Mishra",
     "password": "p@ss#1234",
     "photo":"vivek.jpg",
-    "email": "vivek@email.com",
+    "email": "vivek@gmail.com",
     "roles":["author","editor"]
+}
+
+### Login User
+POST {{api_url}}/signin
+Content-Type: application/json
+
+{
+    "password": "p@ss#1234",
+    "email": "vivek@gmail.com"
 }
 
 ### GET all users
@@ -61,7 +71,7 @@ POST {{api_url}}/signin
 Content-Type: application/json
 
 {
-    "email": "jane.doe@example.com",
+    "email": "jane.doe@email.com",
     "password": "p@ss#1234"
 }
 
@@ -72,8 +82,7 @@ GET {{api_url}}/current
 
 ### Find Current User Info with valid token
 GET {{api_url}}/current
-Authorization: BEARER eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJVc2VyQXV0aGVudGljYXRvciIsImlhdCI6MTczODE0NzU5NCwiZXhwIjoxNzM4MTQ3ODk0LCJjbGFpbXMiOnsibmFtZSI6IkpvaG4gRG9lIiwiZW1haWwiOiJqYW5lLmRvZUBleGFtcGxlLmNvbSIsInJvbGVzIjpbInVzZXIiXSwiYWN0aXZlIjp0cnVlfSwic3ViIjoiamFuZS5kb2VAZXhhbXBsZS5jb20ifQ.bNoherLnD3UnYtRrfER4I95-KDeRb4kITGG3G-qvgCU 
-
+Authorization: BEARER eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJVc2VyQXV0aGVudGljYXRvciIsImlhdCI6MTczODE1MTk1MSwiZXhwIjoxNzM4MTUyMjUxLCJjbGFpbXMiOnsibmFtZSI6IlZpdmVrIER1dHRhIE1pc2hyYSIsImVtYWlsIjoidml2ZWtAZ21haWwuY29tIiwicGhvdG8iOiJ2aXZlay5qcGciLCJyb2xlcyI6WyJhdXRob3IiLCJlZGl0b3IiXSwiYWN0aXZlIjp0cnVlfSwic3ViIjoidml2ZWtAZ21haWwuY29tIn0.EYu0HKQYevUxTrrDLvlBNqXH1ceUIwArH4fCgUt05uk
 
 ### Find Current User Info with invalidvalid token
 GET {{api_url}}/current
@@ -83,7 +92,7 @@ Authorization: BEARER eyJhbXXXGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1lIjoiSm9obi
 
 
 ### Activate User jane.doe@example.com
-PATCH {{api_url}}/jane.doe@example.com/activate
+PATCH {{api_url}}/jane.doe@email.com/activate
 Content-Type: application/json
 
 {
