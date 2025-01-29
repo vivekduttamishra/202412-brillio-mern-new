@@ -5,6 +5,7 @@ const httpx = require('./httpx');
 const injector = require('./injector')
 const errors=require('./errors');
 const MongooseRepository = require('./mongoose.repository');
+const jwt = require('./jwt');
 
 
 
@@ -15,7 +16,8 @@ module.exports={
     injector,
     errors,
     MongooseRepository,
- 
+    jwt,
+    version:1.5,
 }
 
 

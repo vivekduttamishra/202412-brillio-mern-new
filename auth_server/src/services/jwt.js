@@ -16,8 +16,8 @@ async function createToken(claims, key,options={}){
     
     key = key || process.env.JWT_SECRET
 
-    console.log('key',key);
-    console.log('options',options);
+    // console.log('key',key);
+    // console.log('options',options);
     
     
     

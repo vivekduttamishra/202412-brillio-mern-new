@@ -2,7 +2,7 @@ const express = require('express');
 const userRoutes = require('./routes/user.route')
 const path = require('path');
 const fs = require('fs');
-const { decodeTokenMiddleware } = require('./services/jwt');
+const { tokenDecorder } = require('ca-webutils/jwt');
 
 const public_key = fs.readFileSync(path.join(process.cwd(),'keys', 'jwt.public.key'), 'utf8');
 
@@ -13,7 +13,7 @@ async function createApp(){
     app.use(express.json());
     app.use(express.static(path.join(process.cwd(), 'public')))
 
-    app.use(decodeTokenMiddleware(public_key, {algorithms: ['RS256']}));
+    app.use(tokenDecorder(public_key, {algorithms: ['RS256']}));
 
     // app.use((request,response,next)=>{
     //     console.log('request.user', request.user);   

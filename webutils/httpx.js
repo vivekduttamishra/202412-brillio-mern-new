@@ -48,7 +48,7 @@ function startServer(server,options) {
     
     return new Promise((resolve,reject)=>{
         server.on('error', reject);
-        server.listen(port,resolve(`${options.protocol}://localhost:${port}`));
+        server.listen(port,()=>resolve(`${options.protocol}://localhost:${port}`));
 
     });
 

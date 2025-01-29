@@ -1,7 +1,7 @@
 const express= require('express');
 const {expressx} = require('ca-webutils');
 const userController = require('../controllers/user.controller')
-const {authenticate,authorize} = require('../services/jwt');
+const {authenticate,authorize} = require('ca-webutils/jwt');
 
 
 const createRouter = ()=>{

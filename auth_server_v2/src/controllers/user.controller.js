@@ -28,10 +28,15 @@ const userController = ()=>{
 
        //CREATE JWT TOKEN USING PRIVATE KEY
 
+        if(body.aud)
+            user.aud=body.aud;
+
+        if(body.sub)
+            user.sub=user[body.sub];
+        
 
 
-
-       let token = await jwt.createToken(user,privateKey,{algorithm: 'RS256'});
+       let token = await jwt.createToken(user,privateKey,{algorithm: 'RS256'},body.claims);
 
        return {token,user}
 
@@ -70,7 +75,7 @@ const userController = ()=>{
     
     
     const currentUserInfo = async ({request})=>{        
-        return request.user;
+        return request.token;
     }
 
 

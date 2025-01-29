@@ -1,9 +1,8 @@
-@api_url = https://localhost:4000/api/users
-
+@api_url = https://localhost:6000/api/users
 
 ### Get All Users
 GET {{api_url}}
-Authorization: BEARER eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJVc2VyQXV0aGVudGljYXRvciIsImlhdCI6MTczODE1MjcwNCwiZXhwIjoxNzM4MTUzMDA0LCJjbGFpbXMiOnsibmFtZSI6IkphbmUgRG9lIiwiZW1haWwiOiJqYW5lLmRvZUBlbWFpbC5jb20iLCJwaG90byI6ImphbmUuanBnIiwicm9sZXMiOlsiYWRtaW4iXSwiYWN0aXZlIjp0cnVlfSwic3ViIjoiamFuZS5kb2VAZW1haWwuY29tIn0.d1n_Js8P183AXq83sCr5ng6tBaj_9_toEKByZbGc-Io
+Authorization: BEARER eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJVc2VyQXV0aGVudGljYXRvciIsImlhdCI6MTczODE2NDc0NywiZXhwIjoxNzM4MTY1MDQ3LCJjbGFpbXMiOnsibmFtZSI6IkphbmUgRG9lIiwiZW1haWwiOiJqYW5lLmRvZUBlbWFpbC5jb20iLCJwaG90byI6ImphbmUuanBnIiwicm9sZXMiOlsiYWRtaW4iXSwiYWN0aXZlIjp0cnVlfSwic3ViIjoiamFuZS5kb2VAZW1haWwuY29tIn0.T6JX4ZnN3wx5wnMPVft0ArRe9RBMOE65lqZkeDORVUe6O3DQzoD9YpLkbEAO5dNOOgPj-UBBEXJ9h_9P1Qk1_HMEK1Bi4ayw4IWGhD-o-5BlWSQclnO6rvTPJTder23nf6i3yNZVPSKPdGtUq_l3w_6CvfhjxDgU67CzKvFKHIs8cZ0HUGP-Mc3ucQhG8MX_8XM5cKnbElsbX-IrF-rw7vkIWrlbSnhkc2qenDdMTTf4I46vSiIUQPuK2T0TlGZfDYHt7JH9xquoW9en9eoCS_0SKz_ucDlCOyb1W8zEOQ-3vtjiqdiaWqu5gMuQzG3EfQQQUgSydfjRHi_uWxBVJQ
 
 ### Register User
 POST {{api_url}}
@@ -55,7 +54,7 @@ Content-Type: application/json
 }
 
 ### Login User
-POST {{api_url}}/signin
+POST {{api_url}}/signin 
 Content-Type: application/json
 
 {
