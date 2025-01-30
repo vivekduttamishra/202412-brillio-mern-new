@@ -3,15 +3,15 @@ let { AuthenticationError } = require('./errors');
 let expiry = Number(process.JWT_EXPIRY || 60 * 60)
 
 //typcial jwt payload
-const defaultPayload = {
-    iss: process.env.JWT_ISSUER,
-    //sub: user._id,
-    iat: Math.floor(Date.now() / 1000),
-    exp: Math.floor(Date.now() / 1000) + expiry // 1 hour
-    //aud   
-};
 
 async function createToken(data, key, options = {}, claimsRequested ) {
+    
+    const defaultPayload = {
+        iss: process.env.JWT_ISSUER,
+        //sub: user._id,
+        iat: Math.floor(Date.now() / 1000),
+        exp: Math.floor(Date.now() / 1000) + expiry 
+    };
 
     let commonPayloadKey=['sub','aud']
     let commonPayload={};
