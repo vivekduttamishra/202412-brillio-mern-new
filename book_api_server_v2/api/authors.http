@@ -1,0 +1,90 @@
+@base_url = https://localhost:9000/api
+@auth_server_url = https://localhost:7000/api/users/signin
+
+###
+# @name getAllAuthors
+GET {{base_url}}/authors
+
+###
+# @name getAuthorById
+GET {{base_url}}/authors/vivek-dutta-mishra
+
+###
+# @name getAuthorWithInvalidId
+GET {{base_url}}/authors/invalid-id
+
+###
+# @name createAuthorWithoutToken
+POST {{base_url}}/authors
+Content-Type: application/json
+
+{
+    
+    "name":"John Doe",
+    "photo":"john.jpg",
+    "biography":"John Doe is a famous author in a non-existent planet",
+    "tags":["dummy","test"]
+}
+
+###
+# @name generateNormalUserToken
+POST {{auth_server_url}}
+Content-Type: application/json
+
+{    
+    "password": "p@ss#1234",
+    "email": "vivek@gmail.com"
+}
+
+###
+@user_token={{generateNormalUserToken.response.body.token}}
+
+###
+# @name createAuthorWithUserToken
+POST {{base_url}}/authors
+Content-Type: application/json
+Authorization: BEARER {{user_token}}
+
+{
+    
+    "name":"John Doe",
+    "photo":"john.jpg",
+    "biography":"John Doe is a famous author in a non-existent planet",
+    "tags":["dummy","test"]
+}
+
+###
+# @name verifyNewAuthor
+GET {{base_url}}/authors/john-doe
+
+
+###
+# @name deleteNewAuthorWithToken
+ DELETE {{base_url}}/authors/john-doe
+
+###
+# @name deleteNewAuthorNormalUserToken
+ DELETE {{base_url}}/authors/john-doe
+ Authorization: BEARER {{user_token}}
+
+### 
+# @name generateAdminToken
+ POST {{auth_server_url}}
+ Content-Type: application/json
+
+{    
+    "email": "jane.doe@email.com",
+    "password": "p@ss#1234"
+}
+
+###
+@admin_token = {{generateAdminToken.response.body.token}}
+
+###
+# @name deleteUsingAdminToken
+ DELETE {{base_url}}/authors/john-doe
+ Authorization: BEARER {{admin_token}}
+
+###
+# @name verifyDeleted
+GET {{base_url}}/authors/john-doe

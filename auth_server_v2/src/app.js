@@ -3,8 +3,9 @@ const userRoutes = require('./routes/user.route')
 const path = require('path');
 const fs = require('fs');
 const { tokenDecorder } = require('ca-webutils/jwt');
+const { routeHandler } = require('ca-webutils/expressx');
 
-const public_key = fs.readFileSync(path.join(process.cwd(),'keys', 'jwt.public.key'), 'utf8');
+const public_key = fs.readFileSync(path.join(process.cwd(),'keys', 'jwt2.public.key'), 'utf8');
 
 
 async function createApp(){
@@ -23,6 +24,8 @@ async function createApp(){
     // })
 
     app.use('/api/users/', userRoutes());
+
+    app.get('/api/public/key', routeHandler(async()=> ({ public_key})))
 
     return app;
 }

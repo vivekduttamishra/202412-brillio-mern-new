@@ -4,7 +4,7 @@ const fs = require('fs');
 
 const path = require('path');
 //const privateKey = fs.readFileSync(path.join(process.cwd(),'jwt.private'),'utf-8');
-const privateKey = fs.readFileSync(path.join(process.cwd(),'keys','jwt.private.key'),'utf-8');
+const privateKey = fs.readFileSync(path.join(process.cwd(),'keys','jwt2.private.key'),'utf-8');
 
 
 const userController = ()=>{
