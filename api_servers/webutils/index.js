@@ -17,7 +17,7 @@ module.exports={
     errors,
     MongooseRepository,
     jwt,
-    version:1.5,
+    version:'1.7.1',
 }
 
 

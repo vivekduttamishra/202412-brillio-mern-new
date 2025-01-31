@@ -1,4 +1,7 @@
 
+let express= require('express');
+let path= require('path');
+
 const successMap = {
     GET: 200,
     POST: 201,
@@ -28,13 +31,14 @@ class Response {
         response.status(this.statusCode)
         for (let key in this.headers)
             response.set(key, headers[key]);
-        response.send(this.data)
+        response.send(this.body)
     }
 }
 
 class ResponseError extends Error {
-    constructor(message, status, error, header) {
+    constructor(message, status, error={}, header) {
         super(message);
+        
         if(!error.message)
             error.message=message;
         this.response = new Response(error, status, header);
@@ -55,11 +59,14 @@ function routeHandler(controllerFunction) {
                 request,
                 response,
                 next,
+                path: request.path,
+                url: request.url,
                 params: request.params,
                 body: request.body,
                 query: request.query,
                 user:request.user,
                 tokenError:request.tokenError,
+                token:request.token,
                 ...request.params
             }
             let result = await controllerFunction(controllerParam);
@@ -169,6 +176,25 @@ const errorHandler = (error, request, response, next) => {
 
 }
 
+async function createApiApp( options={}){
+
+    options={staticPath:"public", routeBuilder: app=>{}, ...options};
+
+    let app = express();
+
+    app.use(express.json());
+    app.use(express.urlencoded({ extended: true }));
+    if(options.staticPath){
+        app.use(express.static(path.join(process.cwd(),options.staticPath)));
+    }
+    options.routeBuilder(app);
+
+    app.use(errorHandler);
+
+    return app;
+
+}
+
 
 
 module.exports = {
@@ -178,4 +204,5 @@ module.exports = {
     addCustomError,
     routeHandler,
     Response,
+    createApiApp,
 };
