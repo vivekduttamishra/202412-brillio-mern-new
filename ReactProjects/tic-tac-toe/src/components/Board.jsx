@@ -1,27 +1,52 @@
+import { Component } from "react";
 import Cell from "./Cell";
 
 
-const Board = ()=>{
-    const handleCellClick = (id)=>{
-        console.log('board is notified about clicked cell',id);
+class Board extends Component {
+
+
+    constructor(props) {
+        super(props);
+        this.state = {
+
+            current: "O",
+            cells: [
+                    null, null, null,
+                    null, null, null,
+                    null, null, null
+            ]
+
+        }
     }
 
-    return (
-        <div className='board'>
-            <Cell id="0" onClick={handleCellClick} />
-            <Cell id="1" onClick={handleCellClick} />
-            <Cell id="2" onClick={handleCellClick} />
+    handleCellClick = (id) => {
+        let cells = this.state.cells;
+        let current = this.state.current;
+        if(cells[id])
+            return ;// cell has a valid value. can't update
 
-            <Cell id="3"  onClick={handleCellClick} />
-            <Cell id="4"  onClick={handleCellClick} />
-            <Cell id="5"  onClick={handleCellClick}/>
-            
-            <Cell id="6"  onClick={handleCellClick}/>
-            <Cell id="7"  onClick={handleCellClick}/>
-            <Cell id="8"  onClick={handleCellClick}/>
+        cells[id]= current;
+        current = current==='O'?"X":"O";
 
-        </div>
-    )
+        this.setState({cells, current});
+    }
+
+    render = () => {
+        return (
+            <div className='board'>
+                {
+                    this.state.cells.map((value, index)=>{
+                        return <Cell 
+                                     key={index}
+                                     id={index} 
+                                     value={value} 
+                                     onCellClick={this.handleCellClick} />
+                    })
+                }
+
+            </div>
+        )
+    }
 }
 
 export default Board;

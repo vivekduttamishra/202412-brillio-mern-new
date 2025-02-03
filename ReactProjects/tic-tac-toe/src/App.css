@@ -65,6 +65,8 @@ body{
   width:70px;
   height:70px;
   background:white;
+  font-size:25px;
+  font-weight: bold;
   
  /* border:1px solid gray;
  float:left;

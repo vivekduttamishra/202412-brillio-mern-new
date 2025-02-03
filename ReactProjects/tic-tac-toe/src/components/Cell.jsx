@@ -1,31 +1,22 @@
 import { Component } from "react";
 
-class Cell extends Component{
+const Cell = (props) => {
+    let value = props.value || "_"
 
-    constructor(props){
-        super(props);
+    let style = {
+        cursor: props.value ? "not-allowed" : "pointer"
+    };
 
-        //this.value="_"
+    if (!props.value)
+        style.color = 'transparent';
 
-        this.state={
-            value:"_"
-        }
-
-
-        //this.handleCellClick=this.handleCellClick.bind(this);
-    }
-
-   
-
-    render(){
-
-        return (
-            <button className='cell' 
-                onClick={()=>this.props.onClick(this.props.id)}>
-                {this.state.value }
-            </button>
-        )
-    }
+    return (
+        <button className='cell' style={style}
+            onClick={() => props.onCellClick(props.id)}>
+            {value}
+        </button>
+    )
 }
+
 
 export default Cell;
