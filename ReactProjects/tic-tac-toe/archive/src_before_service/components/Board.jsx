@@ -11,8 +11,6 @@ const Board = (props) => {
                         key={index}
                         id={index}
                         value={value}
-                        gameOver={props.gameOver}
-                        winner={props.winner} 
                         onCellClick={props.onCellClick} />
                 })
             }
