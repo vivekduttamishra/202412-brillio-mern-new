@@ -4,6 +4,7 @@ import Reset from "./Reset";
 import Status from "./Status";
 import TicTacToe from "../services/TicTacToe";
 import MovesTable from "./MovesTable";
+import Clock from "./Clock";
 
 class Game extends Component {
 
@@ -54,13 +55,29 @@ class Game extends Component {
         this.setState(this.newGame());
     }
 
+    handleClockToggle=()=>{
+        let hide= this.state.hideClock || false;
+
+        hide=!hide;
+
+        this.setState({hideClock:hide});
+        
+    }
+
+
     render = () => {
 
-
+        
 
         return (
             <div className="game row" >
                 <div className="col game_left">
+                    
+                    { this.state.hideClock || <Clock/> } 
+                    
+                    <button onClick={this.handleClockToggle} className="btn btn-sm btn-success">
+                        {this.state.hideClock?'Show':'Hide'} Clock
+                    </button>
                     <Status message={this.state.status} />
                     <Board cells={this.state.cells}
                         gameOver={this.state.gameOver}

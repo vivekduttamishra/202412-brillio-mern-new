@@ -1,37 +1,36 @@
-import { Component } from "react";
 
-const Cell = (props) => {
-    let value = props.value || "_"
+const Cell = ({value, id, winner, gameOver, onCellClick}) => {
+    value = value 
     //console.log('cell props',props);
     let style = {
-        cursor: props.value || props.gameOver ? "not-allowed" : "pointer",
+        cursor: value || gameOver ? "not-allowed" : "pointer",
        
     };
 
-    if (!props.value)
+    if (!value)
         style.color = 'transparent';
 
-    if(props.winner && props.winner.includes(props.id))
+    if(winner && winner.includes(id))
         style.background='lime';
 
-    if([0,3,6].includes(props.id))
+    if([0,3,6].includes(id))
         style.borderLeft="0px"
     
-    if(props.id<3)
+    if(id<3)
         style.borderTop="0px"
 
-    if([2,5,8].includes(props.id))
+    if([2,5,8].includes(id))
         style.borderRight="0px";
 
-    if(props.id>5)
+    if(id>5)
         style.borderBottom="0px"
 
 
 
     return (
         <button className='cell' style={style}
-            onClick={() => props.onCellClick(props.id)}>
-            {value}
+            onClick={() => onCellClick(id)}>
+            {value||"_"}
         </button>
     )
 }
