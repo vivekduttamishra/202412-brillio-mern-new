@@ -1,10 +1,9 @@
-const Status = ()=>{
-
+const Status = (props)=>{
 
     
     return (
         <div className='status'>
-            Next Move: "O"
+            {props.message}
         </div>
     )
 }

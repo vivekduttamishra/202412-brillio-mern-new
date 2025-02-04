@@ -1,6 +1,6 @@
-const Reset = ()=>{
+const Reset = (props)=>{
     return (
-        <button className="reset">
+        <button onClick={props.onReset} className="reset">
             Reset
         </button>
     )
