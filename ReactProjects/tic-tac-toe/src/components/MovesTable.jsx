@@ -2,6 +2,9 @@
 
 const MovesTable = (props)=>{
 
+    console.log('props',props);
+    const moves=props.moveList;
+
     return (
         <div>
             <h2>Move's Table</h2>
@@ -14,16 +17,16 @@ const MovesTable = (props)=>{
                     </tr>
                 </thead>
                 <tbody>
-                    <tr>
-                        <td>1</td>
-                        <td>O</td>
-                        <td>4</td>
-                    </tr>
-                    <tr>
-                        <td>2</td>
-                        <td>X</td>
-                        <td>0</td>
-                    </tr>
+                    {
+                        moves.map((move)=>(
+                            <tr key={move.index}>
+                                <td>{move.index}</td>
+                                <td>{move.player}</td>
+                                <td>{move.position}</td>
+                            </tr>
+                        ))
+                    }
+                    
                 </tbody>
             </table>
         </div>

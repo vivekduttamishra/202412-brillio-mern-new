@@ -17,7 +17,8 @@ class Game extends Component {
         this.game = new TicTacToe();
         let state = {
             ...this.game,
-            status: `Current Player: "${this.game.current}"`
+            status: `Current Player: "${this.game.current}"`,
+            //moveList: []
         }
         // console.log('state',state);
         return state;
@@ -27,6 +28,15 @@ class Game extends Component {
     handleCellClick = (id) => {
         if (!this.game.move(id))
             return;
+
+        // let moveList= this.state.moveList;
+        // let player = this.game.current==="O"?"X":"O";
+        // moveList.push({
+        //     index: this.game.moves,
+        //     player,
+        //     position:id
+        // })
+        // this.setState(moveList);
 
         this.setState({ ...this.game })
 
@@ -40,8 +50,8 @@ class Game extends Component {
 
 
     handleReset = () => {
-        let state = this.newGame();
-        this.setState(state);
+        console.log('resetting...');
+        this.setState(this.newGame());
     }
 
     render = () => {
@@ -56,10 +66,14 @@ class Game extends Component {
                         gameOver={this.state.gameOver}
                         winner={this.state.winner}
                         onCellClick={this.handleCellClick} />
-                    <Reset onReset={this.handleReset} />
+                    { 
+                        this.state.gameOver && 
+                        <Reset  
+                        onReset={this.handleReset} />                         
+                    }
                 </div>
                 <div className="col">
-                    <MovesTable/>
+                    <MovesTable moveList={this.state.moveList} />
                 </div>
 
 

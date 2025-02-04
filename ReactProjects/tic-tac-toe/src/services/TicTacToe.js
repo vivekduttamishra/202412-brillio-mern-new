@@ -11,6 +11,7 @@ export default class TicTacToe{
         this.moves=0;
         this.gameOver=false;
         this.winningPlayer=null;
+        this.moveList=[];
     }
 
     
@@ -28,6 +29,13 @@ export default class TicTacToe{
         //make the move
         this.cells[position]=this.current;
         this.moves++;
+
+        this.moveList.push({
+            index:this.moves, 
+            player:this.current, 
+            position
+        });
+
         this.current = this.current==="O"?"X":"O";
         this.winner = this._checkWinner();
         this.gameOver = this.winner || this.moves===9
