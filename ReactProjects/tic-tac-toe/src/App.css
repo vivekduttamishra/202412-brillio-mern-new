@@ -94,3 +94,13 @@ body{
  align-items: center;
  justify-content: center; */
 }
+
+.seriesScoreBoard{
+  display:flex;
+  flex-direction:column;
+  align-items: center;
+  border:2px solid gray;
+  border-radius: 10px;
+  box-shadow: -5px -5px 5px gray;
+  margin:5px;
+}
