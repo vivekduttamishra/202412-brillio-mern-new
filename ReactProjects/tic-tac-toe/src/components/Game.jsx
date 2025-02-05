@@ -52,7 +52,7 @@ class Game extends Component {
 
 
     handleReset = () => {
-        console.log('resetting...');
+        
         this.setState(this.newGame());
     }
 
@@ -74,8 +74,8 @@ class Game extends Component {
             <div className="game row" >
                 <div className="col game_left">
                     <div className="row">
-                        <Timer hideControls className="col" label="O"/>
-                        <Timer hideControls className="col" label="X"/>
+                        <Timer hideControls={true} running={this.state.current === "O" && !this.state.gameOver}  className="col" label="O"/>
+                        <Timer hideControls={true} running={this.state.current === "X" && !this.state.gameOver}  className="col" label="X"/>
 
                     </div>
                     <Status message={this.state.status} />

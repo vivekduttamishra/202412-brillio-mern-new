@@ -3,46 +3,20 @@ import './Timer.css'
 
 class Timer extends Component {
 
-    constructor(props){
-        super(props);
-        this.preceision=props.preceision||100;
-        this.tick=0;
-        this.state={
-            ms:0,
-            iid:null,
-            running:false 
-        }
-    }
-    
-
-
-    static getDerivedStateFromProps(props, state){
-        return {running :props.running}
+    state={
+        ms:0,
+        iid:null
     }
 
-    _updateTime=()=>{
-        this.tick++;
-        
-        if(this.state.running)
-            this.setState({ms:this.state.ms+this.preceision})
-    }
     start=()=>{
-        this.setState({running:true})
-    }
-
-    stop=()=>{
-        this.setState({running:false})
-    }
-
-
-
-    componentDidMount=()=>{
-        
-        let iid=setInterval(this._updateTime, this.preceision)
+        let preceision = this.props.preceision||100;
+        let iid=setInterval(()=>{
+            this.setState({ms:this.state.ms+preceision})
+        }, preceision)
         this.setState({iid})
     }
 
-    componentWillUnmount=()=>{
+    stop=()=>{
         clearInterval(this.state.iid)
         this.setState({ms:this.state.ms});
         this.setState({iid:null})
@@ -58,7 +32,6 @@ class Timer extends Component {
         ms = ms - minutes*60000;
         let seconds = Math.floor(ms/1000);
         ms = ms - seconds*1000;
-        console.log(this.props.label,'this.props.hideControls',this.props.hideControls)
 
         
         const numberSize=(value,zeroCount)=>{
@@ -82,8 +55,8 @@ class Timer extends Component {
                 this.props.hideControls ||
             
                 <div className="controls">
-                    {!this.state.running ? <button className='btn btn-sm btn-success' onClick={this.start}>Start</button> :null }
-                    {this.state.running ?  <button className='btn btn-sm btn-warning' onClick={this.stop}>Stop</button>:null }
+                    {!this.state.iid ? <button className='btn btn-sm btn-success' onClick={this.start}>Start</button> :null }
+                    {this.state.iid ?  <button className='btn btn-sm btn-warning' onClick={this.stop}>Stop</button>:null }
                     {this.state.ms>0 && <button className='btn btn-sm btn-danger' onClick={this.reset}>Reset</button>}
                 </div>
             }
