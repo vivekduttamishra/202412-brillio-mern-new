@@ -58,7 +58,7 @@ class Timer extends Component {
         ms = ms - minutes*60000;
         let seconds = Math.floor(ms/1000);
         ms = ms - seconds*1000;
-        console.log(this.props.label,'this.props.hideControls',this.props.hideControls)
+       // console.log(this.props.label,'this.props.hideControls',this.props.hideControls)
 
         
         const numberSize=(value,zeroCount)=>{

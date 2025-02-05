@@ -9,9 +9,9 @@ class Clock extends Component {
 
     componentDidMount=()=>{
         //called only once
-        console.log('component mounted', new Date().toLocaleTimeString());
+        //console.log('component mounted', new Date().toLocaleTimeString());
         this.iid=setInterval(()=>{
-            console.log('timer updated');
+           // console.log('timer updated');
             this.setState({
                     date:new Date(), 
                     tick: this.state.tick+1 
@@ -26,7 +26,7 @@ class Clock extends Component {
 
     componentWillUnmount=()=>{
         //called only once
-        console.log('component unmounted',new Date().toLocaleTimeString())
+      //  console.log('component unmounted',new Date().toLocaleTimeString())
         if(this.iid){
 
             clearInterval(this.iid);

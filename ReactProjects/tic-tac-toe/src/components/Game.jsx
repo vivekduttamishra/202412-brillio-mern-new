@@ -1,4 +1,4 @@
-import { Component } from "react";
+import { useState } from "react";
 import Board from "./Board";
 import Reset from "./Reset";
 import Status from "./Status";
@@ -7,14 +7,15 @@ import MovesTable from "./MovesTable";
 import Clock from "./Clock";
 import Timer from "./Timer";
 
-class Game extends Component {
 
-    constructor(props) {
-        super(props);
-        this.state = this.newGame()
-    }
+const Game = () => {
+    
+    const [_game]= useState(new TicTacToe()); //JS object
+    
+    const [game,updateGame] = useState({..._game});
+    const [status,setStatus] = useState(`Current Player ${game.currentPlayer}`);
 
-    newGame = () => {
+    const newGame = () => {
 
         this.game = new TicTacToe();
         let state = {
@@ -27,76 +28,58 @@ class Game extends Component {
     }
 
 
-    handleCellClick = (id) => {
-        if (!this.game.move(id))
+    const handleCellClick = (id) => {
+        if (!_game.move(id))
             return;
+       
+        console.log('_game',_game);
+        updateGame({ 
+            ..._game            
+        })
 
-        // let moveList= this.state.moveList;
-        // let player = this.game.current==="O"?"X":"O";
-        // moveList.push({
-        //     index: this.game.moves,
-        //     player,
-        //     position:id
-        // })
-        // this.setState(moveList);
+        
 
-        this.setState({ ...this.game })
-
-        if (!this.game.gameOver)
-            this.setState({ status: `Current Player: "${this.game.current}"` });
-        else if (this.game.winningPlayer)
-            this.setState({ status: `${this.game.winningPlayer} Wins` });
+        if (!_game.gameOver)
+            setStatus(`Current Player: "${_game.current}"` );
+        else if (_game.winningPlayer)
+            setStatus(`${_game.winningPlayer} Wins`);
         else
-            this.setState({ status: `Stalemate` });
+            setStatus( `Stalemate`);
     }
 
 
-    handleReset = () => {
-        
-        this.setState(this.newGame());
+    const handleReset = () => {
+        _game = new TickTackToe();
+        updateGame({..._game})
+        this.setStatus(`Next Move: "${_game.current}`)
     }
 
-    handleClockToggle=()=>{
-        let hide= this.state.hideClock || false;
+    return (
+        <div className="game row" >
+            <div className="col game_left">
+                <div className="row">
+                    <Timer hideControls running={game.current === "O" && game.gameOver} className="col" label="O" />
+                    <Timer hideControls running={game.current === "X" && game.gameOver} className="col" label="X" />
 
-        hide=!hide;
-
-        this.setState({hideClock:hide});
-        
-    }
-
-
-    render = () => {
-
-        
-
-        return (
-            <div className="game row" >
-                <div className="col game_left">
-                    <div className="row">
-                        <Timer hideControls={true} running={this.state.current === "O" && !this.state.gameOver}  className="col" label="O"/>
-                        <Timer hideControls={true} running={this.state.current === "X" && !this.state.gameOver}  className="col" label="X"/>
-
-                    </div>
-                    <Status message={this.state.status} />
-                    <Board cells={this.state.cells}
-                        gameOver={this.state.gameOver}
-                        winner={this.state.winner}
-                        onCellClick={this.handleCellClick} />
-                    { 
-                        this.state.gameOver && 
-                        <Reset  
-                        onReset={this.handleReset} />                         
-                    }
                 </div>
-                <div className="col">
-                    <MovesTable moveList={this.state.moveList} />
-                </div>
-
-
+                <Status message={status} />
+                <Board cells={game.cells}
+                    gameOver={game.gameOver}
+                    winner={game.winner}
+                    onCellClick={handleCellClick} />
+                {
+                    game.gameOver &&
+                    <Reset
+                        onReset={handleReset} />
+                }
             </div>
-        )
-    }
+            <div className="col">
+                <MovesTable moveList={game.moveList} />
+            </div>
+
+
+        </div>
+    )
 }
 
 export default Game;

@@ -2,7 +2,7 @@
 
 const MovesTable = (props)=>{
 
-    console.log('props',props);
+   // console.log('props',props);
     const moves=props.moveList;
 
     return (
