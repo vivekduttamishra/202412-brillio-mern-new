@@ -5,6 +5,7 @@ import Status from "./Status";
 import TicTacToe from "../services/TicTacToe";
 import MovesTable from "./MovesTable";
 import Clock from "./Clock";
+import Timer from "./Timer";
 
 class Game extends Component {
 
@@ -72,12 +73,11 @@ class Game extends Component {
         return (
             <div className="game row" >
                 <div className="col game_left">
-                    
-                    { this.state.hideClock || <Clock/> } 
-                    
-                    <button onClick={this.handleClockToggle} className="btn btn-sm btn-success">
-                        {this.state.hideClock?'Show':'Hide'} Clock
-                    </button>
+                    <div className="row">
+                        <Timer hideControls className="col" label="O"/>
+                        <Timer hideControls className="col" label="X"/>
+
+                    </div>
                     <Status message={this.state.status} />
                     <Board cells={this.state.cells}
                         gameOver={this.state.gameOver}

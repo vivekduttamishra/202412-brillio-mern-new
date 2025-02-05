@@ -1,0 +1,45 @@
+@font-face {
+    font-family: 'digital7';
+    src: url(/digital-7.ttf);
+}
+@font-face {
+    font-family: 'led';
+    src: url(/The_Led_Display.ttf);
+}
+
+.timer{
+    border:1px solid gray;
+    width:120px;
+    display:flex;
+    flex-direction: column;
+}
+
+.timer .controls{
+    display:flex;
+    border-top:1px solid gray;
+    padding:2px;
+    align-items: flex-end;
+    justify-content: center;
+    align-content: flex-end;
+}
+
+.timer .time{
+    display:flex;
+    justify-content: center;
+    font-family: led;
+}
+
+.timer .min, .timer .sec{
+    font-size:20px;
+    
+}
+.timer ms{
+    font-size: 12px;
+}
+
+.timer label{
+    text-align: center;
+    font-size:25px;
+    font-weight:  "bold";
+    font-family: 'Shadows'
+}
