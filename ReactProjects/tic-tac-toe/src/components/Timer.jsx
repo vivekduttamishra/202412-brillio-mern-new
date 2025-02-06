@@ -1,97 +1,95 @@
-import { Component } from "react";
+import { useState,useEffect } from "react";
 import './Timer.css'
 
-class Timer extends Component {
-
-    constructor(props){
-        super(props);
-        this.preceision=props.preceision||100;
-        this.tick=0;
-        this.state={
-            ms:0,
-            iid:null,
-            running:false 
-        }
-    }
+const Timer = ({ preceision = 100, label, running, hideControls }) => {
     
+    const [_running, setRunning] = useState(running);
+    
+    const [ticks, updateTicks] = useState(0);
+
+    useEffect(() => {
+        //console.log('running changed for',label, running)
+        setRunning(running); //update running state
+    }, [running]); //when running props changes.
+  
+  // console.log(label, running, ticks);
+
+    useEffect(() => {
+
+        //console.log('_runing changed for',label, _running)
+
+        if(!_running)
+            return ;
+
+        //componentDidMount
+        let _iid = setInterval(()=>{
+                //update tick with given value
+                //updateTicks( ticks+preceision);
+               
+            updateTicks( ticks=> ticks+preceision );
+                
+
+        }, preceision)
 
 
-    static getDerivedStateFromProps(props, state){
-        return {running :props.running}
-    }
-
-    _updateTime=()=>{
-        this.tick++;
-        
-        if(this.state.running)
-            this.setState({ms:this.state.ms+this.preceision})
-    }
-    start=()=>{
-        this.setState({running:true})
-    }
-
-    stop=()=>{
-        this.setState({running:false})
-    }
-
-
-
-    componentDidMount=()=>{
-        
-        let iid=setInterval(this._updateTime, this.preceision)
-        this.setState({iid})
-    }
-
-    componentWillUnmount=()=>{
-        clearInterval(this.state.iid)
-        this.setState({ms:this.state.ms});
-        this.setState({iid:null})
-    }
-
-    reset=()=>{
-        this.setState({ms:0})        
-    }
-
-    render(){
-        let ms = this.state.ms;
-        let minutes = Math.floor(ms/60000);
-        ms = ms - minutes*60000;
-        let seconds = Math.floor(ms/1000);
-        ms = ms - seconds*1000;
-       // console.log(this.props.label,'this.props.hideControls',this.props.hideControls)
-
-        
-        const numberSize=(value,zeroCount)=>{
-            let v= value.toString();
-            while(v.length<zeroCount){
-                v="0"+v;
-            }
-            return v;
+        //componentWillUnmount. The function we return
+        return () => {
+            clearInterval(_iid);
         }
 
-        return <div className="timer">
-            <label>{this.props.label}</label>
-            <div className="time">
-                <span className="min">{numberSize(minutes,2)}:</span>
-                <span className="sec">{numberSize(seconds,2)}.</span>
-                <span className="ms">{numberSize(ms,3)}</span>
-            </div>
+    }, [_running]); //componentDidMount +componentDidUpdate on change of _running
 
-            {
-            
-                this.props.hideControls ||
-            
-                <div className="controls">
-                    {!this.state.running ? <button className='btn btn-sm btn-success' onClick={this.start}>Start</button> :null }
-                    {this.state.running ?  <button className='btn btn-sm btn-warning' onClick={this.stop}>Stop</button>:null }
-                    {this.state.ms>0 && <button className='btn btn-sm btn-danger' onClick={this.reset}>Reset</button>}
-                </div>
-            }
-
-        </div>
+    const start = () => {
+        setRunning(true);
     }
 
+    const stop = () => {
+        setRunning(false);
+    }
 
+    const reset = () => {
+        updateTicks(0)
+    }
+
+    const numberSize = (value, zeroCount) => {
+        let v = value.toString();
+        while (v.length < zeroCount) {
+            v = "0" + v;
+        }
+        return v;
+    }
+
+    let _ms = ticks;
+    let minutes = Math.floor(_ms / 60000);
+    _ms = _ms - minutes * 60000;
+    let seconds = Math.floor(_ms / 1000);
+    _ms = _ms - seconds * 1000;
+    // console.log(this.props.label,'this.props.hideControls',this.props.hideControls)
+
+
+
+    return <div className="timer">
+        <label>{label}</label>
+        <div className="time">
+            <span className="min">{numberSize(minutes, 2)}:</span>
+            <span className="sec">{numberSize(seconds, 2)}.</span>
+            <span className="ms">{numberSize(_ms, 3)}</span>
+        </div>
+
+        {
+
+            hideControls ||
+
+            <div className="controls">
+                {_running ? <button className='btn btn-sm btn-success' onClick={start}>Start</button> : null}
+                {_running ? <button className='btn btn-sm btn-warning' onClick={stop}>Stop</button> : null}
+                {ticks > 0 && <button className='btn btn-sm btn-danger' onClick={reset}>Reset</button>}
+            </div>
+        }
+
+    </div>
 }
+
+
 
 export default Timer;

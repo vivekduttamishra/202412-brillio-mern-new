@@ -19,8 +19,8 @@ body{
 }
 
 .header{
-  color:white;
-  background:lightskyblue;
+  color:darkgreen;
+  background: darkseagreen;
   margin:0px;
   padding:5px;
   
@@ -63,10 +63,14 @@ body{
 .status{
   /* border:1px solid  red; */
   padding:0px;
-  background: teal;
+  background: darkseagreen;
   width:210px;
   text-align: center;
   padding:5px;
+  width:100%;
+  margin:5px;
+  border-radius:5px;
+  box-shadow: -2px -2px 5px green;
 }
 
 

@@ -1,3 +1,8 @@
+
+export const GAME_STATE_NEW="new"
+export const GAME_STATE_INPROGRESS="progress"
+export const GAME_STATE_END="end"
+
 export default class TicTacToe{
 
     constructor(){
@@ -10,6 +15,7 @@ export default class TicTacToe{
         this.winner=null; //null or winning cells.
         this.moves=0;
         this.gameOver=false;
+        this.state=GAME_STATE_NEW
         this.winningPlayer=null;
         this.moveList=[];
     }
@@ -39,6 +45,9 @@ export default class TicTacToe{
         this.current = this.current==="O"?"X":"O";
         this.winner = this._checkWinner();
         this.gameOver = this.winner || this.moves===9
+        
+        this.state= this.gameOver?GAME_STATE_END:GAME_STATE_INPROGRESS;
+        
         this.winningPlayer = this.winner?this.cells[this.winner[0]]:null;
         return true;
     }

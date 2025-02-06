@@ -12,6 +12,11 @@
     width:120px;
     display:flex;
     flex-direction: column;
+    margin:5px;
+    border-radius: 10px;
+    box-shadow:-5px -5px 5px gray;
+    background-color: black;
+    color: #fff
 }
 
 .timer .controls{

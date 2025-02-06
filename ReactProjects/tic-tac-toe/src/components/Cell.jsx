@@ -1,9 +1,10 @@
+import { GAME_STATE_INPROGRESS } from "../services/TicTacToe";
 
-const Cell = ({value, id, winner, gameOver, onCellClick}) => {
+const Cell = ({value, id, winner, gameState, gameOver, onCellClick}) => {
     value = value 
     //console.log('cell props',props);
     let style = {
-        cursor: value || gameOver ? "not-allowed" : "pointer",
+        cursor: value || gameState!==GAME_STATE_INPROGRESS ? "not-allowed" : "pointer",
        
     };
 

@@ -2,7 +2,7 @@ import { useState } from "react";
 import Board from "./Board";
 import Reset from "./Reset";
 import Status from "./Status";
-import TicTacToe from "../services/TicTacToe";
+import TicTacToe, { GAME_STATE_INPROGRESS,GAME_STATE_END, GAME_STATE_NEW } from "../services/TicTacToe";
 import MovesTable from "./MovesTable";
 import Clock from "./Clock";
 import Timer from "./Timer";
@@ -10,10 +10,10 @@ import Timer from "./Timer";
 
 const Game = () => {
     
-    const [_game]= useState(new TicTacToe()); //JS object
+    const [_game,setGameService]= useState(new TicTacToe()); //JS object
     
     const [game,updateGame] = useState({..._game});
-    const [status,setStatus] = useState(`Current Player ${game.currentPlayer}`);
+    const [status,setStatus] = useState(`Game Not Started Yet!`);
 
     const newGame = () => {
 
@@ -29,10 +29,12 @@ const Game = () => {
 
 
     const handleCellClick = (id) => {
+        if(_game.state===GAME_STATE_NEW)
+            return; // NOT STATRED YET.
         if (!_game.move(id))
             return;
        
-        console.log('_game',_game);
+        //console.log('_game',_game);
         updateGame({ 
             ..._game            
         })
@@ -48,29 +50,36 @@ const Game = () => {
     }
 
 
-    const handleReset = () => {
-        _game = new TickTackToe();
-        updateGame({..._game})
-        this.setStatus(`Next Move: "${_game.current}`)
+    const handleStart = () => {
+        let _newGame = new TicTacToe();
+        setGameService(_newGame);
+
+        _newGame.state= GAME_STATE_INPROGRESS; //START THE GAME
+        updateGame({..._newGame})
+        setStatus(`Next Move: "${_newGame.current}`)
     }
+    
 
     return (
         <div className="game row" >
             <div className="col game_left">
                 <div className="row">
-                    <Timer hideControls running={game.current === "O" && game.gameOver} className="col" label="O" />
-                    <Timer hideControls running={game.current === "X" && game.gameOver} className="col" label="X" />
+                    <Timer hideControls running={game.current === "O" && game.state===GAME_STATE_INPROGRESS} className="col" label="O" />
+                    <Timer hideControls running={game.current === "X" && game.state===GAME_STATE_INPROGRESS} className="col" label="X" />
 
                 </div>
                 <Status message={status} />
                 <Board cells={game.cells}
                     gameOver={game.gameOver}
+                    gameState={game.state}
                     winner={game.winner}
                     onCellClick={handleCellClick} />
                 {
-                    game.gameOver &&
-                    <Reset
-                        onReset={handleReset} />
+                    game.state!==GAME_STATE_INPROGRESS &&
+                    <button className="btn btn-primary"
+                        onClick={handleStart} >
+                            Start
+                    </button>
                 }
             </div>
             <div className="col">
