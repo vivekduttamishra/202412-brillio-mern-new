@@ -1,6 +1,8 @@
 import { useState, useEffect } from 'react'
 import { useAuthorContext } from '../contexts/AuthorContext';
+import Loading from '../../utils/components/Loading';
 
+import {Link} from 'react-router-dom'
 
 
 const AuthorListScreen = () => {
@@ -18,7 +20,7 @@ const AuthorListScreen = () => {
     }
 
     if (authors && authors.length === 0)
-        return <h2>Loading...</h2>
+        return <Loading/>
 
     
 
@@ -35,7 +37,10 @@ const AuthorListScreen = () => {
                                 <div className="card-body">
                                     <h5 className="card-title">{author.name}</h5>
                                     <p className="card-text">{author.biography?.substring(0,50)}</p>
-                                    <a href={`/authors/${author.id}`} className="btn btn-primary">Details</a>
+                                    
+                                    <Link to={`/authors/${author.id}`} className="btn btn-primary">Details</Link>
+                                
+                                
                                 </div>
                         </div>
                     ))

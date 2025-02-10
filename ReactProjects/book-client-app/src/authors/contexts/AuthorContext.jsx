@@ -1,5 +1,6 @@
 import {useState, createContext, useContext } from "react";
 import AuthorService from "../services/AuthorService";
+import delay from '../../utils/delay';
 
 const authorService = new AuthorService();
 
@@ -12,10 +13,24 @@ export const AuthorContext =(props)=>{
     // authors=== [author1,author2,author3] => success
 
     const [authors,setAuthors]= useState([]);
+    const [selectedAuthor,setSelectedAuthor] = useState(null);
+
+    const getAuthorById= async(id)=>{
+        await delay(2000); // simulate a delay for loading the author data.
+        try{
+            
+            let author = await authorService.getById(id);
+            console.log('selected author', author);
+            setSelectedAuthor(author);
+        }catch(e){
+            setSelectedAuthor(undefined); 
+        }
+    }
     
     const getAllAuthors= async()=>{
         try{
             setAuthors([]);
+            await delay(2000);
             let authors =await authorService.getAll();
             setAuthors(authors);
         }catch(err){
@@ -24,8 +39,13 @@ export const AuthorContext =(props)=>{
     }
 
     let controller={
+        //states
         authors,
-        getAllAuthors
+        selectedAuthor,
+
+        //actions
+        getAllAuthors,
+        getAuthorById,
     }
 
     return (

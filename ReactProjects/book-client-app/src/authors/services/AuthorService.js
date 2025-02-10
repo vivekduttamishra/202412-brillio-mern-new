@@ -8,5 +8,11 @@ export default class AuthorService{
         console.log('AuthorService.getAll',authors.data);
         return authors.data;
     }
+
+    async getById(id){
+        let response = await http.get(`${baseUrl}/${id}`)
+        let author = response.data;
+        return author;
+    }
 }
 

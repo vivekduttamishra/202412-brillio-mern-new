@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import {Routes, Route, BrowserRouter as Router} from 'react-router-dom'
+import { Routes, Route, BrowserRouter as Router } from 'react-router-dom'
 
 import reactLogo from './assets/react.svg'
 import viteLogo from '/vite.svg'
@@ -16,24 +16,17 @@ import UserRegistrationScreen from './users/screens/UserRegistrationScreen'
 import NotFoundScreen from './commons/screens/NotFoundScreen'
 
 function App() {
-  
+
 
 
   return (
     <div>
-      <Header title="World Wide Books"  />
-      <div>
-        <a className='btn btn-default' href="/authors">Author List</a>
-        <a className='btn btn-default' href="/books">Book List</a>
-        <a className='btn btn-default'  href="/authors/add">Add Author</a>
-        <a className='btn btn-default' href="/books/add">Add Book</a>
-        <a className='btn btn-default' href="/user/login">Login</a>
-        <a className='btn btn-default' href="/user/register">Register</a>
-      </div>
-      <div className="screen container">
       <Router>
+        <Header title="World Wide Books" />
+
+        <div className="screen container">
           <Routes>
-            <Route path="/" element={<AuthorListScreen/>} />             
+            <Route path="/" element={<AuthorListScreen />} />
             <Route path="/authors" element={<AuthorListScreen />} />
             <Route path="/authors" element={<AuthorListScreen />} />
             <Route path="/authors/add" element={<AuthorAddScreen />} />
@@ -42,16 +35,15 @@ function App() {
             <Route path="/books/add" element={<BookAddScreen />} />
             <Route path="/books/:id" element={<BookDetailsScreen />} />
             <Route path="user/login" element={<UserLoginScreen />} />
-            <Route path="user/register" element={<UserRegistrationScreen />} />            
-            <Route path="*" element={<NotFoundScreen />} /> 
+            <Route path="user/register" element={<UserRegistrationScreen />} />
+            <Route path="*" element={<NotFoundScreen />} />
           </Routes>
-        </Router>
-
-
-      
-      </div>
-    </div>
+        </div>
+      </Router>
+    </div >
   )
 }
 
 export default App
+
+
