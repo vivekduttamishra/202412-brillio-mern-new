@@ -1,28 +1,54 @@
 import { useState } from 'react'
+import {Routes, Route, BrowserRouter as Router} from 'react-router-dom'
+
 import reactLogo from './assets/react.svg'
 import viteLogo from '/vite.svg'
 import './App.css'
 import Header from './commons/components/Header'
-import routes from './Routes'
+import BookListScreen from './books/screens/BookListScreen'
+import AuthorListScreen from './authors/screens/AuthorListScreen'
+import AuthorAddScreen from './authors/screens/AuthorAddScreen'
+import AuthorDetailsScreen from './authors/screens/AuthorDetailsScreen'
+import BookAddScreen from './books/screens/BookAddScreen'
+import BookDetailsScreen from './books/screens/BookDetailsScreen'
+import UserLoginScreen from './users/screens/UserLoginScreen'
+import UserRegistrationScreen from './users/screens/UserRegistrationScreen'
 import NotFoundScreen from './commons/screens/NotFoundScreen'
-function App() {
-  const [screenName,navigate]=useState('author-list-screen');
 
-  const screen = routes[screenName];
+function App() {
+  
+
 
   return (
     <div>
-      <Header title="World Wide Books" navigate={navigate} />
+      <Header title="World Wide Books"  />
       <div>
-        <button onClick={()=>navigate('author-list-screen')}>Author List</button>
-        <button onClick={()=>navigate('book-list-screen')}>Book List</button>
-        <button onClick={()=>navigate('author-add-screen')}>Add Author</button>
-        <button onClick={()=>navigate('book-add-screen')}>Add Book</button>
-        <button onClick={()=>navigate('user-login-screen')}>Login</button>
-        <button onClick={()=>navigate('user-registration-screen')}>Register</button>
+        <a className='btn btn-default' href="/authors">Author List</a>
+        <a className='btn btn-default' href="/books">Book List</a>
+        <a className='btn btn-default'  href="/authors/add">Add Author</a>
+        <a className='btn btn-default' href="/books/add">Add Book</a>
+        <a className='btn btn-default' href="/user/login">Login</a>
+        <a className='btn btn-default' href="/user/register">Register</a>
       </div>
       <div className="screen container">
-        {screen || <NotFoundScreen/>}
+      <Router>
+          <Routes>
+            <Route path="/" element={<AuthorListScreen/>} />             
+            <Route path="/authors" element={<AuthorListScreen />} />
+            <Route path="/authors" element={<AuthorListScreen />} />
+            <Route path="/authors/add" element={<AuthorAddScreen />} />
+            <Route path="/authors/:id" element={<AuthorDetailsScreen />} />
+            <Route path="/books" element={<BookListScreen />} />
+            <Route path="/books/add" element={<BookAddScreen />} />
+            <Route path="/books/:id" element={<BookDetailsScreen />} />
+            <Route path="user/login" element={<UserLoginScreen />} />
+            <Route path="user/register" element={<UserRegistrationScreen />} />            
+            <Route path="*" element={<NotFoundScreen />} /> 
+          </Routes>
+        </Router>
+
+
+      
       </div>
     </div>
   )

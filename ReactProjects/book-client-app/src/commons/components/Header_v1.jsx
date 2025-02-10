@@ -1,6 +1,6 @@
 import Membership from "../../users/components/Membership";
 
-const Header = ({ title}) => {
+const Header = ({ title, navigate}) => {
 
     return (<nav className="navbar navbar-expand-lg bg-body-tertiary">
         <div className="container-fluid">
@@ -11,10 +11,10 @@ const Header = ({ title}) => {
             <div className="collapse navbar-collapse" id="navbarNavDropdown">
                 <ul className="navbar-nav">
                     <li className="nav-item">
-                        <a className="nav-link active"  aria-current="page" href="/books">Books</a>
+                        <a className="nav-link active" onClick={()=>navigate('book-list-screen')} aria-current="page" href="#">Books</a>
                     </li>
                     <li className="nav-item">
-                        <a className="nav-link"  href="/authors">Authors</a>
+                        <a className="nav-link" onClick={()=>navigate('author-list-screen')} href="#">Authors</a>
                     </li>
 
                 </ul>

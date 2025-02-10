@@ -1,8 +1,21 @@
 import { useState } from 'react'
+
+
+
 import reactLogo from './assets/react.svg'
 import viteLogo from '/vite.svg'
 import './App.css'
 import Header from './commons/components/Header'
+import BookListScreen from './books/screens/BookListScreen'
+import AuthorListScreen from './authors/screens/AuthorListScreen'
+import AuthorAddScreen from './authors/screens/AuthorAddScreen'
+import AuthorDetailsScreen from './authors/screens/AuthorDetailsScreen'
+import BookAddScreen from './books/screens/BookAddScreen'
+import BookDetailsScreen from './books/screens/BookDetailsScreen'
+import UserLoginScreen from './users/screens/UserLoginScreen'
+import UserRegistrationScreen from './users/screens/UserRegistrationScreen'
+import NotFoundScreen from './commons/components/NotFoundScreen'
+
 function App() {
   const [screen,setScreen]=useState('author-list-screen');
 
@@ -18,7 +31,11 @@ function App() {
         <button onClick={()=>setScreen('user-login-screen')}>Login</button>
         <button onClick={()=>setScreen('user-registration-screen')}>Register</button>
       </div>
+
       <div className="screen container">
+        
+        
+
       {screen==='author-list-screen' && <AuthorListScreen/>}
       {screen==='book-list-screen' && <BookListScreen/>}
       {screen==='author-add-screen' && <AuthorAddScreen/>}
@@ -27,9 +44,6 @@ function App() {
       {screen==='book-details-screen' && <BookDetailsScreen/>}
       {screen==='user-login-screen' && <UserLoginScreen/>}
       {screen==='user-registration-screen' && <UserRegistrationScreen/>}
-
-
-
       
       </div>
     </div>
