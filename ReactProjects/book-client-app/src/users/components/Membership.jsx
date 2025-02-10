@@ -1,4 +1,4 @@
-
+import {Link} from 'react-router-dom';
 
 const Membership = () => {
     return (<ul className="navbar-nav ms-auto ">
@@ -7,9 +7,9 @@ const Membership = () => {
                 Membership
             </a>
             <ul className="dropdown-menu">
-                <li><a className="dropdown-item" href="#">Login</a></li>
-                <li><a className="dropdown-item" href="#">Register</a></li>
-                <li><a className="dropdown-item" href="#">Pricing</a></li>
+                <li><Link className="dropdown-item" to="/user/login">Login</Link></li>
+                <li><Link className="dropdown-item" to="/user/register">Register</Link></li>
+                <li><Link className="dropdown-item" to="/pricing">Pricing</Link></li>
             </ul>
         </li>
     </ul>)
