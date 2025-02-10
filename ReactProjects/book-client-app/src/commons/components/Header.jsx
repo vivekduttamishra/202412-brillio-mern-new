@@ -1,4 +1,6 @@
-const Header = ({ title }) => {
+import Membership from "../../users/components/Membership";
+
+const Header = ({ title, navigate}) => {
 
     return (<nav className="navbar navbar-expand-lg bg-body-tertiary">
         <div className="container-fluid">
@@ -9,25 +11,14 @@ const Header = ({ title }) => {
             <div className="collapse navbar-collapse" id="navbarNavDropdown">
                 <ul className="navbar-nav">
                     <li className="nav-item">
-                        <a className="nav-link active" aria-current="page" href="#">Books</a>
+                        <a className="nav-link active" onClick={()=>navigate('book-list-screen')} aria-current="page" href="#">Books</a>
                     </li>
                     <li className="nav-item">
-                        <a className="nav-link" href="#">Authors</a>
+                        <a className="nav-link" onClick={()=>navigate('author-list-screen')} href="#">Authors</a>
                     </li>
 
                 </ul>
-                <ul className="navbar-nav container-fluid ">
-                    <li className="nav-item dropdown d-flex">
-                        <a className="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                            Membership
-                        </a>
-                        <ul className="dropdown-menu">
-                            <li><a className="dropdown-item" href="#">Login</a></li>
-                            <li><a className="dropdown-item" href="#">Register</a></li>
-                            <li><a className="dropdown-item" href="#">Pricing</a></li>
-                        </ul>
-                    </li>
-                </ul>
+                <Membership/>
             </div>
         </div>
     </nav>)

@@ -10,6 +10,17 @@ const AuthorListScreen=()=>{
         getAllAuthors();
     },[])
 
+    if(authors===null){
+        return (<div>
+            <h2>Failed to Load Author</h2>
+            <button className='btn btn-primary' onClick={getAllAuthors}>Retry</button>
+        </div>)
+    }
+
+    if(authors && authors.length===0)
+        return <h2>Loading...</h2>
+
+
 
     return (
         <div className="author-list-screen">
