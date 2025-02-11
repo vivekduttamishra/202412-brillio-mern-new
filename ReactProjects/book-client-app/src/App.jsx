@@ -14,6 +14,7 @@ import BookDetailsScreen from './books/screens/BookDetailsScreen'
 import UserLoginScreen from './users/screens/UserLoginScreen'
 import UserRegistrationScreen from './users/screens/UserRegistrationScreen'
 import NotFoundScreen from './commons/screens/NotFoundScreen'
+import AuthorManageScreen from './authors/screens/AuthorManageScreen'
 
 function App() {
 
@@ -30,6 +31,7 @@ function App() {
             <Route path="/authors" element={<AuthorListScreen />} />
             <Route path="/authors" element={<AuthorListScreen />} />
             <Route path="/authors/add" element={<AuthorAddScreen />} />
+            <Route path="/authors/manage" element={<AuthorManageScreen />} />
             <Route path="/authors/:id" element={<AuthorDetailsScreen />} />
             <Route path="/books" element={<BookListScreen />} />
             <Route path="/books/add" element={<BookAddScreen />} />
