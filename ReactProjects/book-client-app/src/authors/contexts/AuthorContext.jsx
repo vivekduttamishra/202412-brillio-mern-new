@@ -20,7 +20,7 @@ export const AuthorContext =(props)=>{
         try{
             
             let author = await authorService.getById(id);
-            console.log('selected author', author);
+          //  console.log('selected author', author);
             setSelectedAuthor(author);
         }catch(e){
             setSelectedAuthor(undefined); 
