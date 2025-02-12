@@ -1,37 +1,22 @@
-import { useState, useEffect } from 'react'
-import { useAuthorContext,AuthorActions } from '../contexts/AuthorContext';
+import {  useEffect } from 'react'
 import Loading from '../../utils/components/Loading';
-
 import {Link} from 'react-router-dom'
-import { useStatusContext } from '../../commons/contexts/status-context';
 import TitledComponent from '../../utils/components/TitledComponent';
 import withBorder from '../../utils/hoc/with-broder';
+
+import { useSelector } from 'react-redux';
+
+
 
 
 const AuthorListScreen = () => {
 
-    const { authors, getAllAuthors } = useAuthorContext();
-    const {getStatus} = useStatusContext();
-    const status = getStatus(AuthorActions.AUTHORS);
-    console.log('status of AUTHORS',status);
+    let authors=[];
 
     useEffect(() => {
-        getAllAuthors();
+        
     }, [])
-
-    if (authors === null) {
-        return (<div>
-            <h2>Failed to Load Author</h2>
-            <button className='btn btn-primary' onClick={getAllAuthors}>Retry</button>
-        </div>)
-    }
-
-    if (authors && authors.length === 0)
-        return <Loading/>
-
-    
-
-    
+  
     return (
         <TitledComponent title="Author List" expandable={true} >
             <div className="author-list-screen">
