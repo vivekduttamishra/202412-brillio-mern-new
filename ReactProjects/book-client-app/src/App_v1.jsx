@@ -15,6 +15,7 @@ import BookDetailsScreen from './books/screens/BookDetailsScreen'
 import UserLoginScreen from './users/screens/UserLoginScreen'
 import UserRegistrationScreen from './users/screens/UserRegistrationScreen'
 import NotFoundScreen from './commons/components/NotFoundScreen'
+import Conditional from './utils/components/Conditional'
 
 function App() {
   const [screen,setScreen]=useState('author-list-screen');
@@ -35,7 +36,10 @@ function App() {
       <div className="screen container">
         
         
-
+      <Conditional condition={screen==='author-list-screen'}>
+        <AuthorListScreen/>
+      </Conditional>
+      
       {screen==='author-list-screen' && <AuthorListScreen/>}
       {screen==='book-list-screen' && <BookListScreen/>}
       {screen==='author-add-screen' && <AuthorAddScreen/>}

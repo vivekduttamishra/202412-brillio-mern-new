@@ -1,9 +1,13 @@
+import withBorder from "../../utils/hoc/with-broder";
 import { useAuthorContext } from "../contexts/AuthorContext";
 
 
-const AuthorList = () => {
+const AuthorList = ({authors,selectedAuthor,getAuthorById}) => {
 
-    const {authors, selectedAuthor, getAuthorById} = useAuthorContext();
+   // const {authors, selectedAuthor, getAuthorById} = useAuthorContext();
+    
+
+    console.log('status',status);
 
     if(authors.length===0)
         return null;
@@ -31,4 +35,6 @@ const AuthorList = () => {
     )
 }
 
-export default AuthorList;
+export default withBorder(AuthorList, "Authors");
+
+//export default AuthorList;

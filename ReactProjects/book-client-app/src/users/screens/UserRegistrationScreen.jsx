@@ -1,15 +1,16 @@
 import { DropDown, Editor, LabeledInput, useModel } from "../../utils/components/Input";
+import TitledComponent from "../../utils/components/TitledComponent";
 import { oneOf, match, email, minLength, required, strongPassword, range } from "../../utils/validator";
 
 const userSchema = {
     name: { value: "", validators: [required] },
     email: [required, email], //default ""
     password: { value: "", validators: [required, strongPassword, minLength(8)], inputType: "password" },
-    confirmPassword: { value: "", label:"confirm password", validators: [required, strongPassword, minLength(8), match('password')], inputType: "password" },
+    confirmPassword: { value: "", label: "confirm password", validators: [required, strongPassword, minLength(8), match('password')], inputType: "password" },
     photo: "", //no validation required.
     roles: {
         value: "",
-        label:"Applied Role",
+        label: "Applied Role",
         validators: [oneOf("author", "editor", "reader")],
         component: (id, model, onChange) => <DropDown values={["author", "editor", "reader"]}
             onChange={onChange}
@@ -18,7 +19,7 @@ const userSchema = {
         />
 
     },
-   // rank: {value:'', validators:[range(1,10)]}
+    // rank: {value:'', validators:[range(1,10)]}
 
 }
 
@@ -33,17 +34,19 @@ const UserRegistrationScreen = () => {
     }
 
     return (
-        <div className="user-registration-screen">
-            <h1>User Registration</h1>
+        <TitledComponent title="User Registeration">
+            <div className="user-registration-screen">
 
-            <Editor 
-                    schema={userSchema} 
-                    onSubmit={registerUser} 
+
+                <Editor
+                    schema={userSchema}
+                    onSubmit={registerUser}
                     submitLabel="Sign Up"
                     submitWithErrors
-                    />
+                />
 
-        </div>
+            </div>
+        </TitledComponent>
     )
 }
 

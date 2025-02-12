@@ -1,6 +1,6 @@
 
 
-import { createContext, useReducer } from "react";
+import { createContext, useReducer,useContext } from "react";
 
 const store={
     USER_LOGIN: {status:'error', error:{ code:404, message:"invalid credentials"}},

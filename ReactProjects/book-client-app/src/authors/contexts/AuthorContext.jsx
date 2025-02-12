@@ -1,7 +1,7 @@
 import {useState, createContext, useContext, useReducer } from "react";
 import AuthorService from "../services/AuthorService";
 import delay from '../../utils/delay';
-
+import {useStatusContext} from '../../commons/contexts/status-context'
 const authorService = new AuthorService();
 
 const authorContext = createContext();
@@ -62,7 +62,7 @@ export const AuthorContext =(props)=>{
     //const [authors,setAuthors]= useState([]);
     //const [selectedAuthor,setSelectedAuthor] = useState(null);
     const [authorStore,dispatch] = useReducer(authorReducer, _authorStore); 
-
+    const {setStatus} = useStatusContext();
   
 
     let controller={
@@ -72,12 +72,25 @@ export const AuthorContext =(props)=>{
         selectedAuthor: authorStore.selectedAuthor,
         //actionCreators
         getAllAuthors: async()=>{
-            let authors = await authorService.getAll();
-            dispatch({type: AuthorActions.AUTHORS, payload: authors});
+            try{
+
+                setStatus(AuthorActions.AUTHORS,"executing");
+                let authors = await authorService.getAll();
+                setStatus(AuthorActions.AUTHORS,"success")
+                dispatch({type: AuthorActions.AUTHORS, payload: authors});
+            }catch(error){
+                setStatus(AuthorActions.AUTHORS,"error",error)
+            }
         },
         getAuthorById: async(id)=>{
-            let author = await authorService.getById(id);
-            dispatch({type: AuthorActions.AUTHOR_SELECT, payload: author});
+            try{
+                setStatus(AuthorActions.AUTHOR_SELECT,"executing");
+                let author = await authorService.getById(id);
+                dispatch({type: AuthorActions.AUTHOR_SELECT, payload: author});
+                setStatus(AuthorActions.AUTHOR_SELECT,"success")
+            }catch(error){
+                setStatus(AuthorActions.AUTHOR_SELECT,"error",error)
+            }
         },
         deleteAuthorById: (id)=>{
             //not deleting right now from api

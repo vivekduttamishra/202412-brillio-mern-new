@@ -6,6 +6,9 @@ import './index.css'
 import App from './App.jsx'
 import { AuthorContext } from './authors/contexts/AuthorContext'
 import { StatusContext } from './commons/contexts/status-context.jsx'
+import up from './users/contexts/user-context'
+
+console.log('UserProvider',up.UserProvider);
 
 createRoot(document.getElementById('root')).render(
   <StrictMode>
