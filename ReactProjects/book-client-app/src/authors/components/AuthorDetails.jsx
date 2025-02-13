@@ -6,7 +6,7 @@ import {withTitleExpander } from "../../utils/components/TitledComponent"
 const AuthorDetails = ({selectedAuthor,deleteAuthorById}) => {
 
 
-    console.log('selectedAuthor',selectedAuthor);
+    //console.log('selectedAuthor',selectedAuthor);
 
     return (
     <div className="author-details-screen">

@@ -13,8 +13,8 @@ const TitledComponent = ({ title, children, expandable = null }) => {
 
     const [visible, setVisible] = useState(expandable);
 
-    console.log('expandable', expandable);
-    console.log('visible', visible);
+   // console.log('expandable', expandable);
+   // console.log('visible', visible);
 
     const handleVisibility = () => {
         setVisible(visible ? false : true);
@@ -30,7 +30,7 @@ const TitledComponent = ({ title, children, expandable = null }) => {
         _style.cursor = "pointer"
     }
 
-    console.log('_style', _style);
+   // console.log('_style', _style);
 
 
     return (

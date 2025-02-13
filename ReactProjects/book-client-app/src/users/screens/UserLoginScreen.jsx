@@ -24,7 +24,7 @@ const UserLoginScreen = () => {
     const handleSubmit=(e)=>{
         e.preventDefault();
         //call login api here
-        console.log('logging the ', user);
+        //console.log('logging the ', user);
     }
     
 

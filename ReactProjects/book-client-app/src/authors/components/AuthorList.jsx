@@ -6,7 +6,7 @@ const AuthorList = ({authors,selectedAuthor,getAuthorById}) => {
    // const {authors, selectedAuthor, getAuthorById} = useAuthorContext();
     
 
-    console.log('status',status);
+   // console.log('status',status);
 
     if(authors.length===0)
         return null;

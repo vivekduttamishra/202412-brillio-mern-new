@@ -2,11 +2,11 @@
 
 const Conditional=({condition, children})=>{
 
-    console.log('condition', condition);
-    console.log('children', children);
+   // console.log('condition', condition);
+   // console.log('children', children);
 
     if(condition){
-        console.log('rendering')
+     //   console.log('rendering')
         return children;
     } 
 }

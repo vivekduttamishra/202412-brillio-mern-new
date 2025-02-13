@@ -14,7 +14,7 @@ const UserLoginScreen = () => {
         else if(!password)
             setError('Password is required');
         else{
-            console.log('Logging', email,password);
+         //   console.log('Logging', email,password);
             setError(null);
         }
     }
