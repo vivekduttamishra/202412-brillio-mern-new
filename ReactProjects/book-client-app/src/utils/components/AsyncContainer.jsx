@@ -11,7 +11,8 @@ export const AsyncContainer = ({ actionId, action, children }) => {
     let dispatch = useDispatch()
 
     useEffect(() => {
-        action()(dispatch)
+        //action()(dispatch)
+        dispatch(action());
 
     }, [])
 
