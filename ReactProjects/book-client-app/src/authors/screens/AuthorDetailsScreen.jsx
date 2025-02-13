@@ -2,19 +2,42 @@ import {useState,useEffect} from 'react'
 import {useParams} from 'react-router-dom'
 import Loading from '../../utils/components/Loading'
 import NotFound from '../../utils/components/NotFound';
+import { AuthorActions, getAuthorById } from '../../stores/author-store';
+import { useDispatch, useSelector } from 'react-redux';
+import { useStatus } from '../../stores/status-store';
 
 
 const AuthorDetailsScreen=()=>{
 
     const {id}= useParams();
-    const {selectedAuthor, getAuthorById} = {};
-    const {getStatus} = {};
+    const selectedAuthor = useSelector(s=>s.selectedAuthor)
+    const status = useStatus(AuthorActions.AUTHOR_SELECT);
+
+    const dispatch = useDispatch();
 
 
     useEffect(()=>{
-        getAuthorById(id);
+        getAuthorById(id)(dispatch);
     },[id])    
   
+
+    if(status.status==='pending')
+        return <Loading />;
+
+    else if(status.status==='error'){
+        // console.error('status.error',status.error);
+        // console.error('status.error.message',status.error.message);
+        // console.error('status.error.response', status.error.response);
+        if(status.error.message.includes('Network Error')){
+            return <h2>Network Error</h2>
+        } else if(status.error.response.status===404)
+            return <NotFound message={`Invalid Author: ${id}`}/>
+        else
+            return <h2>Unknown Error: {status.error.response.status}</h2>
+    }
+
+
+
    
     return (
         <div className="author-details-screen">

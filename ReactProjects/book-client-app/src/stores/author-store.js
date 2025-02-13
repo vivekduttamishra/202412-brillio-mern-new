@@ -1,6 +1,6 @@
 import AuthorService from "../authors/services/AuthorService";
 import delay from '../utils/delay';
-import { setStatus } from "./status-store"
+import { createStatus, setStatus } from "./status-store"
 
 const authorService = new AuthorService();
 
@@ -50,33 +50,56 @@ export const selectedAuthorReducer = (author = null, action) => {
 }
 
 
-export const getAllAuthors=async  (dispatch)=>{
-    return async dispatch => {
-        try {
-            setStatus(dispatch, AuthorActions.AUTHORS,"pending")
-            let authors = await authorService.getAllAuthors();
-            dispatch({ type: AuthorActions.AUTHORS, payload: authors });
-            setStatus(dispatch, AuthorActions.AUTHORS,"success")
-        } catch (error) {
-            setStatus(dispatch, AuthorActions.AUTHORS,"error",error)
-        }
+
+//Action Creators
+
+export const getAllAuthors = () => async(dispatch)=>{
+
+    try {
+        dispatch(createStatus(AuthorActions.AUTHORS, "pending"))
+        let authors = await authorService.getAll();
+        dispatch({ type: AuthorActions.AUTHORS, payload: authors }) //result
+        dispatch(createStatus(AuthorActions.AUTHORS, "success")) //success status
+    } catch (error) {
+        dispatch(createStatus(AuthorActions.AUTHORS,"error",error))
     }
 }
 
-export const getAuthorById =async (id,dispatch) => {
-    return async dispatch => {
-        try {
-            setStatus(dispatch, AuthorActions.AUTHOR_SELECT,"pending")
-            let author = await authorService.getAuthorById(id);
-            setStatus(dispatch, AuthorActions.AUTHOR_SELECT,"success")
-            dispatch({ type: AuthorActions.AUTHOR_SELECT, payload: author });
-        } catch (error) {
-            setStatus(dispatch, AuthorActions.AUTHOR_SELECT,"error",error)
-            
-        }
+export const getAuthorById = (id) => async (dispatch) => {
+
+    const actionId= AuthorActions.AUTHOR_SELECT;
+    try{
+        dispatch(createStatus(actionId, "pending"))
+        let author = await authorService.getById(id);
+        dispatch({ type: actionId, payload: author })
+        dispatch(createStatus(actionId, "success"))
+    }catch(error){
+        dispatch(createStatus(actionId, "error", error))
     }
 }
 
-export const deleteAuthorById= (id,dispatch)=>{
-    dispatch({type: AcuthorActions.DELETE, payload: id})
+export const deleteAuthorById= (id)=> async (dispatch)=>{
+    const actionId= AuthorActions.AUTHOR_DELETE;
+    try{
+        dispatch(createStatus(actionId, "pending"))
+        await authorService.removeById(id);
+        dispatch({ type: actionId, payload: id })
+        dispatch(createStatus(actionId, "success"))
+    }catch(error){
+        dispatch(createStatus(actionId, "error", error))
+    }
 }
+
+export const addAuthor= (author)=> async (dispatch)=>{
+
+    const actionId= AuthorActions.AUTHOR_ADD;
+    try{
+        dispatch(createStatus(actionId, "pending"))
+        let newAuthor = await authorService.addAuthor(author);
+        dispatch({ type: actionId, payload: newAuthor })
+        dispatch(createStatus(actionId, "success"))
+    }catch(error){
+        dispatch(createStatus(actionId, "error", error))
+    }
+}
+

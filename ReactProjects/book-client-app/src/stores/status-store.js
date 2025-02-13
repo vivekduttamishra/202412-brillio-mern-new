@@ -5,6 +5,8 @@
 //     BOOK_DETAILS:{status:'executing'}
 // }
 
+import { useSelector } from "react-redux";
+
 export const statusReducer=(currentStatus={}, action)=>{
 
     //{type: 'STATUS_ACTION', payload:{action:'USER_LOGIN', status:'error', error:value}}
@@ -28,3 +30,20 @@ export const getStatus=(action,store)=>{
     const status = store.status[action];
     return status || {action, status:"pending"}
 }
+
+
+export const useStatus=(action)=>{
+
+    const status = useSelector(s=>s.status[action]);
+
+    return status || {action, status:"pending"}
+
+
+}
+
+
+
+
+
+
+export const createStatus=(action,status,error)=> ({type:'STATUS_SET', payload:{action,status,error}})

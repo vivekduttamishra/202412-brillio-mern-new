@@ -16,5 +16,15 @@ export default class AuthorService{
         let author = response.data;
         return author;
     }
+    async removeById(id){
+        await delay(2000);
+        let response = await http.delete(`${baseUrl}/${id}`)
+    }
+
+    async addAuthor(author){
+        await delay(2000);
+        let response = await http.post(baseUrl,author)
+        return response.data;
+    }
 }
 
