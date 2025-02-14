@@ -2,6 +2,8 @@
 
 //create a logger middleware for redux
 
+import { createStatus } from "../stores/status-store";
+
 export const reduxLogger = store=> next=> action =>{
 
     console.log(`action`,action, store.getState())
@@ -35,5 +37,23 @@ export const thunkCopyCat = store=>next=>action=>{
         return next(action);
     }
 
+}
 
+export const promisedPayload = store=>next=>action=>{
+    if(action.payload instanceof Promise){
+        //I am born to solve this problem.
+        store.dispatch(createStatus(action.type, "pending"));
+        action
+            .payload
+            .then(realPayload =>{
+                store.dispatch({ type: action.type, payload: realPayload });
+                store.dispatch(createStatus(action.type, "success"));
+            })
+            .catch(error => {
+                store.dispatch(createStatus(action.type, "error",error));
+            });
+
+    }else{
+        next(action) //not for me
+    }
 }

@@ -1,5 +1,6 @@
 import AuthorService from "../authors/services/AuthorService";
 import delay from '../utils/delay';
+import { actionCreator, createReducer } from "../utils/redux-utils";
 import { createStatus, setStatus } from "./status-store"
 
 const authorService = new AuthorService();
@@ -14,92 +15,39 @@ export const AuthorActions = {
     AUTHOR_UNSELECT: "AUTHOR_UNSELECT"
 }
 
-export const authorsReducer = (authors = [], action) => {
-    switch (action.type) {
-        case AuthorActions.AUTHORS: //setting a new list of authors
-            return action.payload;
 
-        case AuthorActions.AUTHOR_ADD: //add new author to existing list
-            return [...authors, action.payload]
-
-
-        case AuthorActions.AUTHOR_DELETE: //{ type:'AUTHOR_DELETE', payload: 'jeffrey-archer'}
-            return authors.filter(a => a.id !== action.payload)
-
-        case AuthorActions.AUTHOR_UPDATE: //updating an author
-            return authors.map(a => a.id === action.payload.id ? action.payload : a)
-
-        default:
-            return authors;
-    }
-
+const  authorsReducerMap={
+    AUTHORS: (authors,{payload})=>payload,
+    AUTHOR_ADD: (authors,{payload})=>authors.contact(payload),
+    AUTHOR_DELETE: (authors,{payload})=>authors.filter(a=>a.id!==payload),
+    AUTHOR_UPDATE: (authors,{payload})=> authors.map( a=> a.id===payload.id,payload,a),   
 }
 
-export const selectedAuthorReducer = (author = null, action) => {
-    switch (action.type) {
-        case AuthorActions.AUTHOR_SELECT:
-            return action.payload;
+export const authorsReducer = createReducer(authorsReducerMap,[]);
 
-        case AuthorActions.AUTHOR_DELETE:
-            if (author?.id === action.payload)
-                return null;
-        case AuthorActions.AUTHOR_UNSELECT:
-            return null;
-    }
-    return author;
-}
+export const selectedAuthorReducer = createReducer({
+    [AuthorActions.AUTHOR_SELECT]: (author,{payload})=> payload,
+    [AuthorActions.AUTHOR_UNSELECT]: ()=>null,
+    [AuthorActions.AUTHOR_DELETE]: (author,{payload})=> author.id===payload?null:author
+})
 
 
 
 //Action Creators
 
-export const getAllAuthors = () => async(dispatch)=>{
+export const getAllAuthors = () => (
 
-    try {
-        dispatch(createStatus(AuthorActions.AUTHORS, "pending"))
-        let authors = await authorService.getAll();
-        dispatch({ type: AuthorActions.AUTHORS, payload: authors }) //result
-        dispatch(createStatus(AuthorActions.AUTHORS, "success")) //success status
-    } catch (error) {
-        dispatch(createStatus(AuthorActions.AUTHORS,"error",error))
+    {
+        type:AuthorActions.AUTHORS, 
+        payload:authorService.getAll()
     }
-}
+)
 
-export const getAuthorById = (id) => async (dispatch) => {
 
-    const actionId= AuthorActions.AUTHOR_SELECT;
-    try{
-        dispatch(createStatus(actionId, "pending"))
-        let author = await authorService.getById(id);
-        dispatch({ type: actionId, payload: author })
-        dispatch(createStatus(actionId, "success"))
-    }catch(error){
-        dispatch(createStatus(actionId, "error", error))
-    }
-}
 
-export const deleteAuthorById= (id)=> async (dispatch)=>{
-    const actionId= AuthorActions.AUTHOR_DELETE;
-    try{
-        dispatch(createStatus(actionId, "pending"))
-        await authorService.removeById(id);
-        dispatch({ type: actionId, payload: id })
-        dispatch(createStatus(actionId, "success"))
-    }catch(error){
-        dispatch(createStatus(actionId, "error", error))
-    }
-}
+export const getAuthorById = id => actionCreator(AuthorActions.AUTHOR_SELECT, authorService.getAuthorById(id))
 
-export const addAuthor= (author)=> async (dispatch)=>{
+export const deleteAuthorById= (id)=> actionCreator(AuthorActions.AUTHOR_DELETE, authorService.removeById(id))
 
-    const actionId= AuthorActions.AUTHOR_ADD;
-    try{
-        dispatch(createStatus(actionId, "pending"))
-        let newAuthor = await authorService.addAuthor(author);
-        dispatch({ type: actionId, payload: newAuthor })
-        dispatch(createStatus(actionId, "success"))
-    }catch(error){
-        dispatch(createStatus(actionId, "error", error))
-    }
-}
-
+export const addAuthor= (author)=> actionCreator(AuthorActions.AUTHOR_ADD, authorService.addAuthor(author))
+   

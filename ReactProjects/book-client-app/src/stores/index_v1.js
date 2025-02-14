@@ -1,11 +1,9 @@
 import { userReducer } from './user-store'
 import { AuthorActions, authorsReducer, selectedAuthorReducer } from './author-store'
 import { statusReducer } from './status-store'
-import { combineReducers } from 'redux'
-import { logActions,promisedPayload } from '../utils/redux-middlewares'
-import { configureStore, Tuple } from '@reduxjs/toolkit'
-
-
+import { applyMiddleware, combineReducers, createStore } from 'redux'
+import { logActions,promisedPayload,thunkCopyCat } from '../utils/redux-middlewares'
+import {thunk} from 'redux-thunk'
 
 
 const reducer = combineReducers({
@@ -15,12 +13,10 @@ const reducer = combineReducers({
     status: statusReducer,  // This is for status management.
 })
 
-
-export default configureStore({
-  reducer,
-  middleware: () => new Tuple(
-    logActions( AuthorActions.AUTHOR_DELETE),
-    promisedPayload
-  ),
-})
-
+export default createStore(
+    reducer,
+    applyMiddleware(
+        logActions( AuthorActions.AUTHOR_DELETE),
+        thunkCopyCat,
+        promisedPayload
+    ));

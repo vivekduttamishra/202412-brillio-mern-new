@@ -3,7 +3,8 @@ import delay from '../../utils/delay';
 const  baseUrl= 'https://localhost:4000/api/authors';
 
 export default class AuthorService{
-    async getAll(){
+    
+    getAll=async()=>{
         await delay(2000);
         let authors = await http.get(baseUrl)
       //  console.log('AuthorService.getAll',authors.data);

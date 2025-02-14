@@ -8,7 +8,7 @@ import {AsyncContainer} from '../../utils/components/AsyncContainer';
 const AuthorListScreen = () => {
 
     let authors = useSelector(s => s.authors);
-  
+    console.log('authors in authorslist screen',authors)
     return (
         <AsyncContainer actionId={AuthorActions.AUTHORS} 
                         action={getAllAuthors}>
