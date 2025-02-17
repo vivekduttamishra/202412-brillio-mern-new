@@ -22,22 +22,66 @@ class InvalidCredentialsError extends Error{
     }
 }
 
+class InsufficientBalanceError extends Error{
+    constructor(accountNumber,message){
+        super(message);
+        this.accountNumber=accountNumber;
+        this.name='InsufficientBalanceError';
+    }
+}
+
 
 class Bank{
-    openAccount(){
-        return 1;
+
+    constructor(repository){
+        this.repository=repository;
+    }
+    async openAccount(account){
+       let id = await this.repository.getHighestAccountNumber(); 
+       account.id = id+1;
+       await this.repository.create(account);
+       return account.id;
     }
 
-    withdraw(accountNumber, amount, password){
-        //return true;
+    deposit(accountNumber,amount){
         if(accountNumber<0)
-            throw new InvalidAccountError(-1,`Invalid Account Number ${accountNumber}`);
+            console.log('invalid account number');
+        if(amount<0)
+            console.log('invalid  amount')
 
+        console.log('deposit successful');
+    }
+
+    async getBalance(accountNumber){
+        let account = await this.repository.getById(accountNumber);
+        if(account===null)
+            throw new InvalidAccountError(-1,`Invalid Account Number ${accountNumber}`);
+        return account.balance;
+    }
+
+    async withdraw(accountNumber, amount, password){
+        
         if(amount<0){
             throw new InvalidAmountError(amount,`Invalid Amount ${amount}`);
         }
+        //return true;
+        let account = await this.repository.getById(accountNumber);
+       
+        if(account===null)
+            throw new InvalidAccountError(-1,`Invalid Account Number ${accountNumber}`);
 
-        return true;
+        if(account.password!==password){
+            throw new InvalidCredentialsError(accountNumber,'Invalid Password');
+        }
+
+        if(account.balance<amount)
+            throw new InsufficientBalanceError(accountNumber,`Insufficient Balance ${account.balance}`);
+
+        account.balance-=amount;
+
+        await this.repository.update(account);
+
+        
     }
 }
 

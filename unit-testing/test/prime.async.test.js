@@ -17,8 +17,9 @@ describe('primes', () => {
             });
         })
 
-        xit('should find primes under 100,000', (done)=>{
+        xit('should find primes under 100,000', function(done){
 
+            this.timeout(11000);
             findPrimesCallback(0,100000, (error,primes)=>{
                 //expect(primes.length).to.equal(25);
                 expect(primes).have.length(9592);

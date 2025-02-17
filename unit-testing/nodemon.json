@@ -1,0 +1,6 @@
+{
+    "watch":["src","test","spec"],
+    "ext":".js",
+    "exec": "cls && mocha"
+
+}

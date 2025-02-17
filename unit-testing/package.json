@@ -3,7 +3,9 @@
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
-    "test": "mocha --timeout=15000 --watch"
+    "_test": "mocha test/**/*.test.js spec/**/*.spec.js  --watch",
+    "test": "mocha",
+    "coverage": "nyc   --reporter=lcov mocha"
   },
   "keywords": [],
   "author": "",
@@ -11,6 +13,10 @@
   "description": "",
   "devDependencies": {
     "chai": "^4.5.0",
-    "mocha": "^11.1.0"
+    "chai-as-promised": "^7.1.2",
+    "mocha": "^11.1.0",
+    "nodemon": "^3.1.9",
+    "nyc": "^17.1.0",
+    "sinon": "^19.0.2"
   }
 }
