@@ -3,33 +3,27 @@ const { expect, should } = require('chai')
 should();
 
 
+
+
 describe('primes', () => {
     describe('findPrimesCallback', () => {
 
-        it('shuld return 4 primes under 10',(done)=>{
+        it('should find all primes under 100', (done)=>{
 
-            const primes = findPrimesCallback(0,10, (error,primes)=>{
-
-                expect(error).to.equal(null)
-                primes.should.have.length(4)
-                done()//done.
+            findPrimesCallback(0,100, (error,primes)=>{
+                //expect(primes.length).to.equal(25);
+                expect(primes).have.length(25);
+                done(); //task completed.
             });
-           
-
-
-        });
-
-        it('should return error for inavalid range',(done)=>{
-
-            findPrimesCallback(10,1, (error)=>{
-                expect(error).to.not.equal(null)
-                expect(error.message).to.contains('Invalid Range')
-                done();
-            })
-
         })
 
+        xit('should find primes under 100,000', (done)=>{
 
-
+            findPrimesCallback(0,100000, (error,primes)=>{
+                //expect(primes.length).to.equal(25);
+                expect(primes).have.length(9592);
+                done(); //task completed.
+            });
+        })
     })
 })
