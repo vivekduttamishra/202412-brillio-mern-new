@@ -1,10 +1,6 @@
 
 const injector = require('./utils/injector');
 
-
-
-
-
 const JsonAuthorRepository = require('./repositories/json/json-author.repository');
 const JsonBookRepository = require('./repositories/json/json-book.repository');
 

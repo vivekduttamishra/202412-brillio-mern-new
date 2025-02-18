@@ -1,5 +1,5 @@
 
-const fs= require('fs').promises;
+const fs= require('fs');
 const path = require('path');
 const {NotFoundError,ValidationError}=require('../../utils/errors');
 
@@ -15,9 +15,9 @@ class JsonRepository{
         this.data=[]; 
         this._load();
     }
-    async _load(){
+    _load(){
         try{
-            let str=await fs.readFile(this.path)
+            let str= fs.readFileSync(this.path)
             this.data=JSON.parse(str);
         }catch(e){
             //file does't exist
@@ -27,8 +27,8 @@ class JsonRepository{
         }
     }
 
-    async _save(){
-        await fs.writeFile(this.path, JSON.stringify(this.data));
+     _save(){
+        fs.writeFileSync(this.path, JSON.stringify(this.data));
     }
 
     async getAll(){

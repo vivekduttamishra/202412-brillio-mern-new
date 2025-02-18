@@ -8,7 +8,9 @@
   "description": "",
   "scripts": {
     "start": "node src/main 80",
-    "dev": "nodemon src/main 8000"
+    "dev": "nodemon src/main 8000",
+    "test": "mocha --watch",
+    "coverage": "nyc --reporter=lcov mocha"
   },
   "dependencies": {
     "bcrypt": "^5.1.1",
@@ -19,6 +21,11 @@
     "mongoose": "^8.9.5"
   },
   "devDependencies": {
-    "nodemon": "^3.1.9"
+    "chai": "^4.5.0",
+    "chai-as-promised": "^7.1.2",
+    "mocha": "^11.1.0",
+    "nodemon": "^3.1.9",
+    "nyc": "^17.1.0",
+    "sinon": "^19.0.2"
   }
 }

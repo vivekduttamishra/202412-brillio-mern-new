@@ -1,20 +1,25 @@
 const injector = require('../utils/injector')
 
-const userService = injector.getService('userService');
 
-//console.log('userService',userService.constructor.name);
+const createUserController = () => {
 
+    const userService = injector.getService('userService');
 
-const getAllUsers = async  ()=> await userService.getAllUsers();
-
-const login = async({body})=> await userService.login(body);
+    //console.log('userService',userService.constructor.name);
 
 
-const register = async({body})=> await userService.register(body);
+    const getAllUsers = async () => await userService.getAllUsers();
+
+    const login = async ({ body }) => await userService.login(body);
 
 
-module.exports = {
-    getAllUsers,
-    login,
-    register
+    const register = async ({ body }) => await userService.register(body);
+
+    return {
+        getAllUsers,
+        login,
+        register
+    }
 }
+
+module.exports = createUserController;

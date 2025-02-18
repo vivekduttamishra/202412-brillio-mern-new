@@ -43,9 +43,6 @@ function startServer(requestHandler,port){
         }
          
         let server = https.createServer(options, requestHandler);
-
-
-
         
         server.on('error', reject);
         

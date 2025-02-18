@@ -33,30 +33,8 @@ class InsufficientBalanceError extends Error{
 
 class Bank{
 
-    constructor(repository){
-        this.repository=repository;
-    }
-    async openAccount(account){
-       let id = await this.repository.getHighestAccountNumber(); 
-       account.id = id+1;
-       await this.repository.create(account);
-       return account.id;
-    }
-
-    deposit(accountNumber,amount){
-        if(accountNumber<0)
-            console.log('invalid account number');
-        if(amount<0)
-            console.log('invalid  amount')
-
-        console.log('deposit successful');
-    }
-
-    async getBalance(accountNumber){
-        let account = await this.repository.getById(accountNumber);
-        if(account===null)
-            throw new InvalidAccountError(-1,`Invalid Account Number ${accountNumber}`);
-        return account.balance;
+    constructor(){
+        this.repository=new MongooseRepository();
     }
 
     async withdraw(accountNumber, amount, password){
@@ -83,6 +61,32 @@ class Bank{
 
         
     }
+
+
+    async openAccount(account){
+       let id = await this.repository.getHighestAccountNumber(); 
+       account.id = id+1;
+       await this.repository.create(account);
+       return account.id;
+    }
+
+    deposit(accountNumber,amount){
+        if(accountNumber<0)
+            console.log('invalid account number');
+        if(amount<0)
+            console.log('invalid  amount')
+
+        console.log('deposit successful');
+    }
+
+    async getBalance(accountNumber){
+        let account = await this.repository.getById(accountNumber);
+        if(account===null)
+            throw new InvalidAccountError(-1,`Invalid Account Number ${accountNumber}`);
+        return account.balance;
+    }
+
+    
 }
 
 module.exports={Bank,InvalidAccountError,InvalidAmountError,InvalidCredentialsError}

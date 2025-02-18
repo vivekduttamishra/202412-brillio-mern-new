@@ -1,6 +1,8 @@
-const {register,login,getAllUsers} = require('../controllers/user.controller');
+const createUserController = require('../controllers/user.controller');
 const {routeHandler} = require('../utils/expressx');
 
+
+const {register,login,getAllUsers}=createUserController();
 
 const express = require('express');
 

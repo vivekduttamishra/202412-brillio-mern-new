@@ -14,25 +14,35 @@ class BookService{
 
     async _validate(book){
         let errors={};
+        if(!book.id ){
+            errors.id=book.title?.toLowerCase().split(' ').join('-');
+        }
 
+        
+           
         if(!book.title)
             errors.title="Required";
-        if(!book.author)
-            errors.author="Required";
+        if(!book.authorId)
+            errors.authorId="Required";
         if(!book.price)
             errors.price="Required";
         if(isNaN(book.price) || book.price<0)
             errors.price="Invalid price";
-
+        
         //make sure that authorId is a valid author.
         let author = await this.authorService.getAuthorById(book.authorId);
         if(!author){
-            error.authorId='Invalid Author Id: '+authorId;
+            errors.authorId='Invalid Author Id: '+book.authorId;
+        }
+
+        let existingBook = await this.getById(book.id);
+        if(existingBook){
+            errors.id="Duplicate ID";
         }
 
 
         if(Object.keys(errors).length){
-            throw new ValidationError(errors);
+            throw new ValidationError("Validation Error",errors);
             //return new ValidationError(errors);
         }
     }
