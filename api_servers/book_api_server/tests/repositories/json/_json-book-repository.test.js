@@ -15,7 +15,7 @@ const masterFilePath=path.join(process.cwd(), '/tests/repositories/json/books-te
 const filePath= '/tests/repositories/json/books-test.json';
 console.log('filePath',filePath);
 
-xdescribe('JsonBookRepository V1', () => {
+describe('JsonBookRepository V1', () => {
 
     let bookRepository;
 

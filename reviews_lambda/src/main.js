@@ -10,7 +10,8 @@ async function main(){
     await mongoose.connect(process.env.MONGODB_URI);
     console.log('Connected to MongoDB');
     const seeder = new SeederService();
-    await seeder.seedReview(10);
+    let newReviews=await seeder.seedReview(10);
+    console.log('Newly created reviews:', newReviews);
     await mongoose.disconnect();
 
 }

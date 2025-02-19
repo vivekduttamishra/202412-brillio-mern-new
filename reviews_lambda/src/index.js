@@ -9,10 +9,7 @@ exports.handler = async (event) => {
     try {
         // Reuse existing connection to prevent cold start delays
         if (!mongoConnection) {
-            mongoConnection = await mongoose.connect(process.env.MONGODB_URI, {
-                useNewUrlParser: true,
-                useUnifiedTopology: true
-            });
+            mongoConnection = await mongoose.connect(process.env.MONGODB_URI);
             console.log('Connected to MongoDB');
         }
 

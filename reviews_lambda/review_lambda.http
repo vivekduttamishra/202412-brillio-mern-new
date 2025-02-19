@@ -1,0 +1,14 @@
+@URL=https://juw2ul3p552ytdoxkmaps23rca0vqebh.lambda-url.us-east-1.on.aws/
+
+
+### ADD 10 REVIEWS
+GET {{URL}} 
+
+
+### ADD 5 REVIEWS
+POST {{URL}} 
+Content-Type: application/json
+
+{
+    "count":5
+}

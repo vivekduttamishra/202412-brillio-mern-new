@@ -23,14 +23,11 @@ app.use("/api/books", bookRouter);
 app.use("/api/authors", authorRouter);
 app.use('/api/users', userRouter);
 
-
 app.get('/error/:message', (request,response)=>{
     throw new Error(request.params.message);
 })
 
-
 app.use(errorHandler);
-
 
 
 module.exports=app;
