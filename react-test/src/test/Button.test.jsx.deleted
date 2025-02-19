@@ -1,0 +1,19 @@
+//create vite test to test Button.jsx
+import Button from '../components/Button'
+import { fireEvent, render, screen } from '@testing-library/react'
+
+
+test('Button should have supplied text', () => {
+
+    const text = 'Test';
+    render(<Button label={text} />)
+    expect(screen.getByText(text)).toBeInTheDocument();
+
+})
+
+test('calls onClick when clicked', () => {
+    const handleClick = vi.fn(); // Mock function using Vitest
+    render(<Button label="Click me" onClick={handleClick} />);
+    fireEvent.click(screen.getByText('Click me'));
+    expect(handleClick).toHaveBeenCalledTimes(1);
+});

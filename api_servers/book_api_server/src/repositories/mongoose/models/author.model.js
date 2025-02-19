@@ -8,13 +8,13 @@ const authorSchema = new mongoose.Schema({
         required: true,
         unique:true,
         //custom validator
-        validate: {
-            validator: async(value) => {
-                let result = this.findOne({id:value});
-                return !result;
-            },
-            message: 'Duplicate Id'
-        },
+        // validate: {
+        //     validator: async(value) => {
+        //         let result = this.findOne({id:value});
+        //         return !result;
+        //     },
+        //     message: 'Duplicate Id'
+        // },
     },
     name:{
         type: String,

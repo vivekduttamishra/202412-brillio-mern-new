@@ -4,6 +4,7 @@ const connect =()=> mongoose.connect(process.env.MONGODB_TEST_URL||'mongodb://lo
 
 const close =()=> mongoose.disconnect();
 
-module.export={
-    connect
+module.exports={
+    connect,
+    close
 }

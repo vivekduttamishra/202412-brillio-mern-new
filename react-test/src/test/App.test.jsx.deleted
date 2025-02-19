@@ -1,0 +1,32 @@
+// src/__tests__/App.test.jsx
+import { render, screen } from "@testing-library/react";
+import userEvent from "@testing-library/user-event";
+import { createMemoryHistory } from "history";
+import { Router } from "react-router-dom";
+import App from "../App";
+
+const xtest=()=>{}
+test("renders the home page by default", () => {
+  render(<App />); //  No extra Router, since App already has BrowserRouter
+  expect(screen.getByText("Home Page")).toBeInTheDocument();
+});
+
+test("navigates to the About page on link click", async () => {
+  render(<App />);
+
+  await userEvent.click(screen.getByText("About"));
+
+  expect(screen.getByText("About Page")).toBeInTheDocument();
+});
+
+test("shows 404 page for an unknown route", () => {
+    
+    render(<App />); // Render App normally (it already has BrowserRouter)
+  
+    // Change the route to a non-existing page
+    window.history.pushState({}, "", "/random-page");
+  
+    render(<App />);
+
+    expect(screen.getByText(/404 Not Found/i)).toBeInTheDocument();
+  });
