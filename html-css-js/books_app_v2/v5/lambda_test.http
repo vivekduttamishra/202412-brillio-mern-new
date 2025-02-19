@@ -1,0 +1,12 @@
+@url = https://0a5ftucg10.execute-api.us-east-1.amazonaws.com/Production/vivekMockNewReview
+
+### get all books
+GET {{url}}
+
+### get a book by id
+POST {{url}}
+Content-Type: application/json
+
+{
+    "id":"manas"
+}

@@ -16,6 +16,7 @@ import UserRegistrationScreen from './users/screens/UserRegistrationScreen'
 import NotFoundScreen from './commons/screens/NotFoundScreen'
 import AuthorManageScreen from './authors/screens/AuthorManageScreen'
 import PricingScreen from './commons/screens/PricingScreen'
+import ConditionalTest from './commons/screens/ConditionalTest'
 
 function App() {
 
@@ -40,6 +41,7 @@ function App() {
             <Route path="user/login" element={<UserLoginScreen />} />
             <Route path="user/register" element={<UserRegistrationScreen />} />
             <Route path="/pricing" element={<PricingScreen />} />
+            <Route path="/test" element={<ConditionalTest />} />
             <Route path="*" element={<NotFoundScreen />} />
           </Routes>
         </div>

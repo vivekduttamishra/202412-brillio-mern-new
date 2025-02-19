@@ -26,6 +26,7 @@ let app= (function(){
         let cards = '';
     
         for (let book of books) {
+            console.log('book',book);
             let card = `
             <div class="card" id="${book.id}">
                     <img 

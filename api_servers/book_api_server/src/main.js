@@ -15,7 +15,7 @@ const httpx = require('./utils/httpx.js');
 
 
 httpx.runApp({
-        protocol:'https',
+        protocol:'http',
         requestHandler:app, //express app
         initializer: async()=>{
             await db.connect();
