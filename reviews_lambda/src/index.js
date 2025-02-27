@@ -9,7 +9,10 @@ exports.handler = async (event) => {
     try {
         // Reuse existing connection to prevent cold start delays
         if (!mongoConnection) {
-            mongoConnection = await mongoose.connect(process.env.MONGODB_URI);
+            mongoConnection = await mongoose.connect(process.env.MONGODB_URI, {
+                useNewUrlParser: true,
+                useUnifiedTopology: true
+            });
             console.log('Connected to MongoDB');
         }
 
@@ -19,7 +22,14 @@ exports.handler = async (event) => {
 
         return {
             statusCode: 200,
-            body: JSON.stringify({ message: 'Reviews seeded successfully',reviews, reviewCount: reviews.length }),
+            body: JSON.stringify({ message: 'Reviews seeded successfully',
+                                  reviewCount: reviews.length,
+                                  createdAt:{
+                                    date: new Date().tolocaleDateString(),
+                                    time: new Date().toLocaleTimeString()
+                                  } ,
+                                  reviews, 
+                                }),
         };
     } catch (error) {
         console.error('Error:', error);

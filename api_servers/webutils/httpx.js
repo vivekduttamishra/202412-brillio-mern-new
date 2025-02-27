@@ -65,7 +65,7 @@ async function runApp( options={} ){
 
     const server = info.factory(options.requestHandler);
     try{
-        await options.initializer();
+        await options.initializer(server);
         let url=await startServer(server, options);
         console.log(`Server started at ${url}`);
     }catch(e){options

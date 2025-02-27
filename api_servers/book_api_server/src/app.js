@@ -23,6 +23,11 @@ app.use("/api/books", bookRouter);
 app.use("/api/authors", authorRouter);
 app.use('/api/users', userRouter);
 
+//SPA PATH
+app.get('*', (request,response)=>{
+    response.sendFile(path.join(publicFolder,'index.html'));
+})
+
 app.get('/error/:message', (request,response)=>{
     throw new Error(request.params.message);
 })

@@ -45,7 +45,7 @@ export const getAllAuthors = () => (
 
 
 
-export const getAuthorById = id => actionCreator(AuthorActions.AUTHOR_SELECT, authorService.getAuthorById(id))
+export const getAuthorById = id => actionCreator(AuthorActions.AUTHOR_SELECT, authorService.getById(id))
 
 export const deleteAuthorById= (id)=> actionCreator(AuthorActions.AUTHOR_DELETE, authorService.removeById(id))
 

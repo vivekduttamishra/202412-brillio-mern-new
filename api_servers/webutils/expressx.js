@@ -1,6 +1,6 @@
 
-let express= require('express');
-let path= require('path');
+let express = require('express');
+let path = require('path');
 
 const successMap = {
     GET: 200,
@@ -36,11 +36,11 @@ class Response {
 }
 
 class ResponseError extends Error {
-    constructor(message, status, error={}, header) {
+    constructor(message, status, error = {}, header) {
         super(message);
-        
-        if(!error.message)
-            error.message=message;
+
+        if (!error.message)
+            error.message = message;
         this.response = new Response(error, status, header);
     }
 
@@ -64,9 +64,9 @@ function routeHandler(controllerFunction) {
                 params: request.params,
                 body: request.body,
                 query: request.query,
-                user:request.user,
-                tokenError:request.tokenError,
-                token:request.token,
+                user: request.user,
+                tokenError: request.tokenError,
+                token: request.token,
                 ...request.params
             }
             let result = await controllerFunction(controllerParam);
@@ -83,7 +83,7 @@ function routeHandler(controllerFunction) {
             // response.status(status);
             // let body = error.errors || { message: error.message, status, errors: error }
             // response.send(body);
-            errorHandler(error,request,response,next);
+            errorHandler(error, request, response, next);
 
         }
     }
@@ -142,24 +142,24 @@ function logRequestInfo(request, response, next) {
 
 }
 
-function getHttpError(error){
+function getHttpError(error) {
 
-    let status=500; //default
-    if(errorMap[error.constructor.name]){
-        status=errorMap[error.constructor.name];
-    }else{
-        for(let message in errorMap){
-            if(error.message.includes(message)){
-                status=errorMap[message];
+    let status = 500; //default
+    if (errorMap[error.constructor.name]) {
+        status = errorMap[error.constructor.name];
+    } else {
+        for (let message in errorMap) {
+            if (error.message.includes(message)) {
+                status = errorMap[message];
                 break;
             }
         }
     }
 
     let body = error.errors || { message: error.message, status, errors: error }
-    if(!body.message)
-        body.message=error.message;
-    
+    if (!body.message)
+        body.message = error.message;
+
     return new ResponseError(error.message, status, body);
 }
 
@@ -169,23 +169,23 @@ const errorHandler = (error, request, response, next) => {
     // let body = error.errors || { message: error.message, status, errors: error }
     // response.send(body);
 
-    if(!(error instanceof ResponseError))
-        error=getHttpError(error);
+    if (!(error instanceof ResponseError))
+        error = getHttpError(error);
 
     error.send(response);
 
 }
 
-async function createApiApp( options={}){
+async function createApiApp(options = {}) {
 
-    options={staticPath:"public", routeBuilder: app=>{}, ...options};
+    options = { staticPath: "public", routeBuilder: app => { }, ...options };
 
     let app = express();
 
     app.use(express.json());
     app.use(express.urlencoded({ extended: true }));
-    if(options.staticPath){
-        app.use(express.static(path.join(process.cwd(),options.staticPath)));
+    if (options.staticPath) {
+        app.use(express.static(path.join(process.cwd(), options.staticPath)));
     }
     options.routeBuilder(app);
 
@@ -195,7 +195,15 @@ async function createApiApp( options={}){
 
 }
 
+const spa= (public ) => {
 
+    if(!public)
+        public=path.join(process.cwd(), "public",'index.html');
+
+    return (request, response) => {
+        response.sendFile(public);
+    }
+}
 
 module.exports = {
     jsonBody: jsonBody,
@@ -204,5 +212,6 @@ module.exports = {
     addCustomError,
     routeHandler,
     Response,
+    spa,
     createApiApp,
 };
