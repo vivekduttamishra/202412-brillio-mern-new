@@ -1,4 +1,5 @@
 import { Link } from "react-router-dom"
+import IpAddress from "./IpAddress"
 
 
 const Header = ({title='The Great Website'})=>{
@@ -9,6 +10,7 @@ const Header = ({title='The Great Website'})=>{
                 <li><Link to="/authors">Authors</Link></li>
                 <li><Link to="/about">About</Link></li>
                 <li><Link to="/login">Login</Link></li>
+                <li><IpAddress/></li>
             </ul>
         </nav>
     </div>)
