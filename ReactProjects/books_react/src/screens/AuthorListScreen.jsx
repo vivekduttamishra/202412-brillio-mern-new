@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import authorService from '../services/AuthorService';
+import { Link } from 'react-router-dom';
 
 const AuthorListScreen = ()=>{
 
@@ -24,7 +25,7 @@ const AuthorListScreen = ()=>{
                     <div className="author-card" data-testid='author-card' key={author.id}>
                         <img src={author.photo} alt={author.name} />
                         <h3>{author.name}</h3>
-                        <button onClick={()=>selectAuthor(author)}>Details</button>
+                        <Link className='btn btn-primary' to={`/authors/${author.id}`}>Details</Link>
                     </div>
                 ))}    
             </div>

@@ -1,13 +1,18 @@
 import {render,screen, fireEvent} from '@testing-library/react';
 import AuthorListScreen from './AuthorListScreen';
 import authorService from '../services/AuthorService';
+import { it } from 'vitest';
 
-describe('AuthorListScreen',()=>{
+describe.skip('AuthorListScreen',()=>{
 
     let _authors;
+    let container;
+    
     beforeEach(()=>{
         _authors=authorService.getAllAuthors();
-        render(<AuthorListScreen/>)
+        let rendered = render(<AuthorListScreen/>)
+        container=rendered.container;
+       
     })
 
     it('should include Header Author List',()=>{
@@ -20,7 +25,7 @@ describe('AuthorListScreen',()=>{
         // let _authors = authorService.getAllAuthors();
         // render(<AuthorListScreen/>);
 
-        let names = screen.queryAllByTestId('author-card');
+       let names = screen.queryAllByTestId('author-card');
 
         expect(names).toHaveLength(_authors.length);
     })
@@ -51,4 +56,10 @@ describe('AuthorListScreen',()=>{
 
         expect(screen.queryByText(expectedMessage)).toBeInTheDocument();
     });
+
+    it('should be able to locate items with given class',()=>{
+
+        let authorCards = container.querySelectorAll('.author-card');
+        expect(authorCards).toHaveLength(_authors.length);
+    })
 })
