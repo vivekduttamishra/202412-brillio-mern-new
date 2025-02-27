@@ -1,25 +1,47 @@
-import { useState } from 'react';
-import authorService from '../services/AuthorService';
+import { useState,useEffect } from 'react';
+import authorService from '../services/HttpAuthorService';
 import { Link } from 'react-router-dom';
+import Loading from '../components/Loading';
+import ErrorView from '../components/ErrorView';
 
 const AuthorListScreen = ()=>{
 
-    const [selectedAuthor,selectAuthor] = useState(null);
+    //let authors =  authorService.getAllAuthors()//.filter((a,i)=>i<2);
+    const [authors, setAuthors] =useState('');
+    const [status, setStatus] = useState('loading');
+    const [error, setError] = useState(null);
 
-    //getAllAuthors is a sync function here
-    //it is ok to call a sync function because 
-    //next line will not work till we got the details
-    //it is a single rendering
-    //this approach will not work for an async function
-    let authors =  authorService.getAllAuthors()//.filter((a,i)=>i<2);
+    useEffect(()=>{
+        authorService.getAllAuthors()
+        .then(data=>{
+            setAuthors(data);
+            setStatus('success');
+            setError(null)
+        })
+        .catch(err=>{
+            console.error('Error fetching authors',err);
+            setStatus('error');
+            setError(err);
+        })
+        setError(null);
+    },[]);
 
+    if(status==='loading'){
+        return <Loading/>
+    }
+
+    if(status==='error'){
+        return <ErrorView error={error}/>
+    }
    
+    if(status!=='success'){
+        return <ErrorView message="Unknown Status"/>
+    }
 
     return (
         <div className="AuthorListScreen">
             <h1>Author List</h1>
 
-            {selectedAuthor && <h4>Selected Author: {selectedAuthor.name}</h4>}
             <div className="author-list">
                 {authors.map(author=>(
                     <div className="author-card" data-testid='author-card' key={author.id}>
